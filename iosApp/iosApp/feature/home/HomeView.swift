@@ -30,9 +30,7 @@ struct HomeScreen: View {
                 }
             
             VStack {
-                homeHeader
-                
-                HomeStatisticView(showPortfolio: $showPortfolioCoinsList)
+                homeHeader 
                 
                 SearchBarView(searchText: Binding(get: {
                     vm.state.searchText
@@ -60,21 +58,11 @@ struct HomeScreen: View {
                 
                 Spacer(minLength: 0)
             }
-            .sheet(isPresented: $showSettingsView) {
-//                SettingsView()
-            }
         }
         .environmentObject(vm)
         .task{
             vm.observe()
         }
-        .background(
-//            NavigationLink(
-//                destination: DetailLoadingView(coin: $selectedCoin),
-//                isActive: $showDetailView,
-//                label: { EmptyView() }
-//            )
-        )
     }
 }
 

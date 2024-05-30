@@ -4,7 +4,6 @@ import shared
 struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var toastManager = ToastManager.shared
-    @StateObject private var appViewModel = AppIOSViewModel()
     
     @StateObject private var navigator = Factories.current.navigator
     private let viewFactory = Factories.current.viewFactory
@@ -34,11 +33,7 @@ struct ContentView: View {
                 }
             })
             .toastView(toast: $toastManager.toast)
-            .task {
-                appViewModel.observe()
-            }
-//            .preferredColorScheme(appViewModel.state.isDarkMode ? .dark : appViewModel.state.isDarkMode  == false ? .light : nil)
-         
+          
         
     }
 }

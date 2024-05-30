@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Spider"
+rootProject.name = "CryptoKoin-KMM"
 include(":androidApp")
 include(":shared")

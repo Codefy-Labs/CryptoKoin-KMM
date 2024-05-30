@@ -1,19 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="phoenix_welcomes_you">Phoenix Welcomes You!</string>
-    <string name="step_into_a_world_of_instant_connectivity">Step into a World of Instant Connectivity</string>
-    <string name="continue_with_email">Continue with Email</string>
-    <string name="login">Login</string>
-    <string name="password">Password</string>
-    <string name="new_password">New Password</string>
-    <string name="type_your_password_here">Type your password here...</string>
-    <string name="type_your_new_password_here">Type your new password here...</string>
-    <string name="email_id">Email Id</string>
-    <string name="welcome_back">Welcome Back</string>
-    <string name="enter_your_email_and_password_to_access_your_account">Enter your email and password to access your account</string>
-    <string name="full_name">Full name</string>
-    <string name="welcome_abroad">Welcome Aboard!</string>
-    <string name="sign_up_now_to_embark_on_a_journey_of_instant_connectivity_and_connection_with_phoenix">Sign up now to embark on a journey of instant connectivity and connection with Phoenix.</string>
-    <string name="submit">Submit</string>
-    <string name="verification_code">Verification Code</string>
+
 </resources>

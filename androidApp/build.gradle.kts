@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "com.codefylabs.www.spider.android"
+    namespace = "com.codefylabs.www.cryptokoin.android"
     compileSdk = 34
     defaultConfig {
-        applicationId = "com.codefylabs.www.spider.android"
+        applicationId = "com.codefylabs.www.cryptokoin.android"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
