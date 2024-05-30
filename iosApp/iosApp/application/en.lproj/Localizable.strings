@@ -1,0 +1,90 @@
+/* 
+  Localizable.strings
+  iosApp
+
+  Created by Shubham Tomar on 04/04/24.
+  Copyright © 2024 orgName. All rights reserved.
+ 
+  Add semicolon ( ; ) after each string END
+*/
+
+"welcome-to-app" = "Welcome to Phoenix";
+"email" = "Email";
+"password" = "Password";
+"login" = "Login";
+"sign-up" = "Sign up";
+"forgotten-password" = "Forgotten password";
+
+"signup-title" = "Welcome Aboard!";
+"signup-subtitle" = "Sign up now to embark on a journey of instant connectivity and connection with Phoenix.";
+"full-name" = "Full name";
+
+"contains-atleast-8-char" = "Contains at least 8 characters";
+"contains-atleast-1-lowercase" = "Contains at least one lowercase letter";
+"contains-atleast-1-uppercase" = "Contains at least one uppercase letter";
+"contains-atleast-1-digit" = "Contains at least one digit";
+"contains-atleast-1-special-char" = "Contains at least one special character";
+"submit" = "Submit";
+
+"forget-pwd-title" = "Forget Password?";
+"forget-pwd-subtitle" = "Don't Worry, Just enter your registered email to reset password.";
+
+
+"reset-pwd-title" = "Verify Your Email";
+"reset-pwd-subtitle" = "One step closer! Paste the verification code from your email to unlock your account and set a new password.";
+
+"verficiation-code" = "Verification Code";
+"new-password" = "New Password";
+
+"user-phoneno-title" = "Add Phone Number";
+"user-phoneno-subtitle" = "Your personal number will be added for crucial communication only. So, enter your phone number, and then we'll send OTP to verify it.";
+
+"phone-number" = "Phone number";
+"otp" = "OTP";
+"resend-otp" = "Resend Otp";
+"verify" = "Verify";
+"send-otp" = "Send Otp";
+"pick-your-country" = "Pick your country";
+
+"recent" = "Recent";
+"archives" = "Archives";
+"inbox" = "Inbox";
+"invite" = "Invite";
+
+"account-info" = "Account informations";
+"assigned-number" = "Assigned number";
+"my-phone-no" = "My phone number";
+"account-management" = "Account Management";
+"deactivation-deletion" = "Deactivation and deletion";
+"subscription" = "Subscription";
+"subscription-plan-message" = "You are currently on a pro plan, to update or change your plan, please click here.";
+"sign-out" = "Sign out";
+
+"settings" = "Settings";
+"notification" = "Notification";
+"ringtone" = "Ringtone";
+"vibration" = "Vibration";
+"recall-frequency" = "Recall frequency";
+"offline-status-alarm" = "Offline status alarm";
+"handling" = "Handling";
+"greeting" = "Greeting";
+"sms-forwarding" = "SMS forwarding";
+"local-phone-number" = "Local phone number";
+"security" = "Security";
+"language" = "Language";
+"my-calendar" = "My calendar";
+"silence-mode" = "Silence mode";
+"resources" = "Resources";
+"how-to" = "How to";
+"about" = "About";
+"share-feedback" = "Share feedback";
+
+"archive" = "Archive";
+"unarchive" = "Unarchive";
+"delete" = "Delete";
+"empty-archived-callbacks" = "No Archived Callbacks Yet!";
+"empty-archived-callbacks-desc" = "Whenever you archive a callback by swiping right on callback, it'll appear here.";
+"empty-callbacks" = "No Callbacks Yet!";
+"empty-callbacks-desc" = "Whenever someone call you, it'll appear here. Easily monitor all incoming calls here";
+
+

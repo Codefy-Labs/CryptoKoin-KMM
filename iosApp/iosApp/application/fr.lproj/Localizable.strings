@@ -1,0 +1,85 @@
+/* 
+  Localizable.strings
+  iosApp
+
+  Created by Shubham Tomar on 04/04/24.
+  Copyright © 2024 orgName. All rights reserved.
+*/
+
+"welcome-to-app" = "Bienvenue sur Phoenix";
+"email" = "E-mail";
+"password" = "Mot de passe";
+"login" = "Connexion";
+"sign-up" = "S'inscrire";
+"forgotten-password" = "Mot de passe oublié ?";
+
+"signup-title" = "Bienvenue à bord !";
+"signup-subtitle" = "Inscrivez-vous maintenant pour embarquer dans un voyage de connectivité instantanée et de connexion avec Phoenix.";
+"full-name" = "Nom complet";
+
+"contains-atleast-8-char" = "Contient au moins 8 caractères";
+"contains-atleast-1-lowercase" = "Contient au moins une lettre minuscule";
+"contains-atleast-1-uppercase" = "Contient au moins une lettre majuscule";
+"contains-atleast-1-digit" = "Contient au moins un chiffre";
+"contains-atleast-1-special-char" = "Contient au moins un caractère spécial";
+"submit" = "Soumettre";
+
+"forget-pwd-title" = "Mot de passe oublié ?";
+"forget-pwd-subtitle" = "Ne vous inquiétez pas, entrez simplement votre e-mail enregistré pour réinitialiser le mot de passe.";
+
+"reset-pwd-title" = "Vérifiez votre e-mail";
+"reset-pwd-subtitle" = "Un pas de plus ! Collez le code de vérification de votre e-mail pour déverrouiller votre compte et définir un nouveau mot de passe.";
+
+"verficiation-code" = "Code de vérification";
+"new-password" = "Nouveau mot de passe";
+
+"user-phoneno-title" = "Ajouter un numéro de téléphone";
+"user-phoneno-subtitle" = "Votre numéro personnel sera ajouté uniquement pour une communication cruciale. Entrez donc votre numéro de téléphone, puis nous vous enverrons l'OTP pour le vérifier.";
+
+"phone-number" = "Numéro de téléphone";
+"otp" = "OTP";
+"resend-otp" = "Renvoyer l'OTP";
+"verify" = "Vérifier";
+"send-otp" = "Envoyer l'OTP";
+"pick-your-country" = "Choisissez votre pays";
+
+"recent" = "Récent";
+"archives" = "Archives";
+"inbox" = "Boîte de réception";
+"invite" = "Inviter";
+
+"account-info" = "Informations du compte";
+"assigned-number" = "Numéro attribué";
+"my-phone-no" = "Mon numéro de téléphone";
+"account-management" = "Gestion du compte";
+"deactivation-deletion" = "Désactivation et suppression";
+"subscription" = "Abonnement";
+"subscription-plan-message" = "Vous êtes actuellement sur un plan pro, pour mettre à jour ou changer votre plan, veuillez cliquer ici.";
+"sign-out" = "Se déconnecter";
+
+"settings" = "Paramètres";
+"notification" = "Notification";
+"ringtone" = "Sonnerie";
+"vibration" = "Vibration";
+"recall-frequency" = "Fréquence de rappel";
+"offline-status-alarm" = "Alarme de statut hors ligne";
+"handling" = "Gestion";
+"greeting" = "Accueil";
+"sms-forwarding" = "Transfert de SMS";
+"local-phone-number" = "Numéro de téléphone local";
+"security" = "Sécurité";
+"language" = "Langue";
+"my-calendar" = "Mon calendrier";
+"silence-mode" = "Mode silence";
+"resources" = "Ressources";
+"how-to" = "Comment faire";
+"about" = "À propos";
+"share-feedback" = "Partager des commentaires";
+
+"archive" = "Archiver";
+"unarchive" = "Désarchiver";
+"delete" = "Supprimer";
+"empty-archived-callbacks" = "Aucun rappel archivé pour le moment !";
+"empty-archived-callbacks-desc" = "Lorsque vous archivez un rappel en le faisant glisser vers la droite, il apparaîtra ici.";
+"empty-callbacks" = "Aucun rappel pour le moment !";
+"empty-callbacks-desc" = "Lorsque quelqu'un vous appelle, cela apparaîtra ici. Surveillez facilement tous les appels entrants ici.";
