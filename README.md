@@ -7,6 +7,7 @@ Welcome to the CryptoKoin-KMM repository! This project is a Kotlin Multiplatform
 CryptoKoin is a cross-platform mobile application that allows users to:
 
 - View the latest cryptocurrency prices.
+- Search and sort by name and price.
 - Track historical data and trends.
 - Stay updated with real-time market changes.
 
@@ -17,13 +18,16 @@ This project leverages the power of KMM to share common code between Android and
 - **Real-time Data**: Fetches up-to-date cryptocurrency prices and market data using the GeckoCoin API.
 - **Cross-Platform**: Built using Kotlin Multiplatform Mobile, enabling code sharing between Android and iOS.
 - **User-Friendly Interface**: Provides a clean and intuitive user interface for easy navigation and data visualization.
+- **Clean Architecture**: Organized using the Clean Architecture principles for better maintainability and testability.
+
 
 ## Technologies Used
 
 - **Kotlin Multiplatform Mobile (KMM)**: To share code between Android and iOS applications.
 - **GeckoCoin API**: For fetching cryptocurrency data.
 - **Ktor**: A framework for making network requests.
-- **SQLDelight**: For database management and queries.
+- **Koin**: LightWeight Dependency Injection for both Android and IOS.
+- **Realm**: For database management and queries.
 - **Kotlin Coroutines**: For asynchronous programming.
 - **Jetpack Compose (Android)**: For building the user interface on Android.
 - **SwiftUI (iOS)**: For building the user interface on iOS.
