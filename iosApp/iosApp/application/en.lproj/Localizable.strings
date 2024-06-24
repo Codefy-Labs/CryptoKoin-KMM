@@ -8,4 +8,110 @@
   Add semicolon ( ; ) after each string END
 */
 
+
+
+/* Onboarding Steps */
+"immigration_status_title" = "Immigration Status";
+"immigration_status_description" = "Are you planning to immigrate to Canada, or are you already here?";
+"immigration_status_option_1" = "Planning to immigrate";
+"immigration_status_option_2" = "Already in Canada";
+
+"pathway_title" = "Pathway";
+"pathway_description" = "Which immigration pathway are you applying for?";
+"pathway_option_1" = "Express Entry";
+"pathway_option_2" = "Provincial Nominee Program";
+"pathway_option_3" = "Family Sponsorship";
+"pathway_option_4" = "Study Permit";
+"pathway_option_5" = "Work Permit";
+"pathway_option_6" = "Refugee Status";
+"pathway_option_7" = "Startup Visa";
+"pathway_option_8" = "Self-employed Persons Program";
+"pathway_option_9" = "Atlantic Immigration Program";
+"pathway_option_10" = "Quebec-selected Skilled Workers";
+
+"target_province_title" = "Target Province";
+"target_province_description" = "Which province or territory are you planning to settle in?";
+"target_province_option_1" = "Alberta";
+"target_province_option_2" = "British Columbia";
+"target_province_option_3" = "Manitoba";
+"target_province_option_4" = "New Brunswick";
+"target_province_option_5" = "Newfoundland and Labrador";
+"target_province_option_6" = "Northwest Territories";
+"target_province_option_7" = "Nova Scotia";
+"target_province_option_8" = "Nunavut";
+"target_province_option_9" = "Ontario";
+"target_province_option_10" = "Prince Edward Island";
+"target_province_option_11" = "Quebec";
+"target_province_option_12" = "Saskatchewan";
+"target_province_option_13" = "Yukon";
+
+"language_proficiency_title" = "Language Proficiency";
+"language_proficiency_description" = "What is your level of proficiency in English and/or French?";
+"language_proficiency_option_1" = "Beginner";
+"language_proficiency_option_2" = "Intermediate";
+"language_proficiency_option_3" = "Advanced";
+"language_proficiency_option_4" = "Fluent";
+"language_proficiency_option_5" = "Native Speaker";
+
+"employment_status_title" = "Employment Status";
+"employment_status_description" = "What is your current employment status?";
+"employment_status_option_1" = "Employed";
+"employment_status_option_2" = "Self-employed";
+"employment_status_option_3" = "Unemployed";
+"employment_status_option_4" = "Student";
+"employment_status_option_5" = "Retired";
+
+"occupation_industry_title" = "Occupation & Industry";
+"occupation_industry_description" = "What is your occupation or industry of expertise?";
+"occupation_industry_option_1" = "Information Technology";
+"occupation_industry_option_2" = "Healthcare";
+"occupation_industry_option_3" = "Engineering";
+"occupation_industry_option_4" = "Education";
+"occupation_industry_option_5" = "Finance";
+"occupation_industry_option_6" = "Hospitality";
+"occupation_industry_option_7" = "Retail";
+"occupation_industry_option_8" = "Construction";
+"occupation_industry_option_9" = "Agriculture";
+"occupation_industry_option_10" = "Arts and Entertainment";
+"occupation_industry_option_11" = "Other";
+
+"education_title" = "Education";
+"education_description" = "What is your highest level of education?";
+"education_option_1" = "High School";
+"education_option_2" = "Vocational Training";
+"education_option_3" = "Associate Degree";
+"education_option_4" = "Bachelor's Degree";
+"education_option_5" = "Master's Degree";
+"education_option_6" = "Doctorate";
+"education_option_7" = "Other";
+
+"family_status_title" = "Family Status";
+"family_status_description" = "Are you immigrating alone or with family?";
+"family_status_option_1" = "Alone";
+"family_status_option_2" = "With Family";
+
+"housing_preferences_title" = "Housing Preferences";
+"housing_preferences_description" = "What type of housing are you looking for?";
+"housing_preferences_option_1" = "Apartment";
+"housing_preferences_option_2" = "House";
+"housing_preferences_option_3" = "Shared Accommodation";
+"housing_preferences_option_4" = "Temporary Housing";
+"housing_preferences_option_5" = "Other";
+
+"settlement_services_title" = "Settlement Services";
+"settlement_services_description" = "What types of settlement services are you interested in?";
+"settlement_services_option_1" = "Language Classes";
+"settlement_services_option_2" = "Job Search Assistance";
+"settlement_services_option_3" = "Housing Assistance";
+"settlement_services_option_4" = "Legal Services";
+"settlement_services_option_5" = "Healthcare Services";
+"settlement_services_option_6" = "Community Integration Programs";
+"settlement_services_option_7" = "Other";
+
+"transportation_needs_title" = "Transportation Needs";
+"transportation_needs_description" = "Do you need assistance with transportation options?";
+"transportation_needs_option_1" = "Yes";
+"transportation_needs_option_2" = "No";
+
+
  

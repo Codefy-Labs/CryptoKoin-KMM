@@ -31,10 +31,10 @@ struct WarningBoxView: View {
                 .padding()
             
             Text(LocalizedStringKey(title))
-                .customFont(size: 20, weight : .medium)
+                .customFont( 20, weight : .medium)
             
             Text(LocalizedStringKey(message))
-                .customFont(size: 16, weight : .medium)
+                .customFont(  16, weight : .medium)
                 .multilineTextAlignment(.center)
                 .padding(.top, 1)
                 .padding(.horizontal, 16)

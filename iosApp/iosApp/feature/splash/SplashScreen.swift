@@ -14,8 +14,8 @@ struct SplashScreen: View {
             Image("logo")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 150, height: 150)
-        } 
+                .frame(width: 250, height: 250)
+        }
     }
 }
 

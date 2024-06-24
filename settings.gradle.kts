@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CryptoKoin-KMM"
+rootProject.name = "CanImmigrate"
 include(":androidApp")
 include(":shared")

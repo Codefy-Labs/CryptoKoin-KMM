@@ -22,7 +22,7 @@ struct ButtonPrimary: ButtonStyle {
         configuration.label
             .padding(.horizontal, 24)
             .padding(.vertical, 12)
-            .customFont(size: 16, weight: .medium)
+            .customFont(  16, weight: .medium)
             .background(tint)
             .foregroundStyle(.white)
             .clipShape(.rect(cornerSize: .init(width: 6, height: 6)))
@@ -42,7 +42,7 @@ struct ButtonPrimarySmall: ButtonStyle {
         configuration.label
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
-            .customFont(size: 14, weight: .medium)
+            .customFont( 14, weight: .medium)
             .background(tint)
             .foregroundStyle(.white)
             .clipShape(.rect(cornerSize: .init(width: 4, height: 4)))
@@ -61,7 +61,7 @@ struct ButtonOutlined: ButtonStyle {
         configuration.label
             .padding(.horizontal, 10)
             .padding(.vertical, 8)
-            .customFont(size: 16, weight: .medium)
+            .customFont(  16, weight: .medium)
             .foregroundStyle(tint)
             .background(
                 RoundedRectangle(
@@ -83,7 +83,7 @@ struct ButtonOutlinedSmall: ButtonStyle {
         configuration.label
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
-            .customFont(size: 12, weight: .medium)
+            .customFont(  12, weight: .medium)
             .foregroundStyle(tint)
             .background(
                 RoundedRectangle(

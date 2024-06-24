@@ -8,34 +8,23 @@
 
 import Foundation
 import SwiftUI
+import Lottie
 
 struct LoadingView: View {
     @State private var rotationAngle: Double = 0
 
     var body: some View {
         ZStack{
-            Color.gray.opacity(0.5).edgesIgnoringSafeArea(.all)
+            Color.gray.opacity(0.2).edgesIgnoringSafeArea(.all)
             
             VStack{
                 Spacer()
                 ZStack {
-                    Colors.blue.opacity(0.9)
-                        .edgesIgnoringSafeArea(.all)
-
-                    Image("logo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(.blue)
-                        .rotationEffect(.degrees(rotationAngle))
-                        .onAppear() {
-                            withAnimation(Animation.linear(duration: 1).repeatForever(autoreverses: false)) {
-                                rotationAngle = 360
-                            }
-                        }
+                    LottieView(animation: .named("loading"))
+                        .playing(loopMode: .repeat(.infinity))
                 }
-                .frame(width: 120, height: 120)
-                .clipShape(Circle())
+                .frame(width: 250, height: 250)
+             
                 Spacer()
             }
             
@@ -51,7 +40,7 @@ extension View {
             if isLoading {
                 LoadingView()
             }
-        }
+        } 
     }
 }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 import SwiftUI
- 
+
 protocol ViewFactory {
     @ViewBuilder
     func build(screen: Screen) -> AnyView
@@ -35,9 +35,26 @@ class ViewFactoryImp: ViewFactory {
             
         case .splashScreen:
             return AnyView(SplashScreen())
-          
+        case .dashboardScreen :
+            return AnyView(DashboardScreen(viewModel: self.viewModelFactory.makeDashboardViewModel()))
         case .homeScreen:
-            return AnyView(HomeScreen(vm: self.viewModelFactory.makeHomeViewModel()))
+            return AnyView(HomeScreen(viewModel: self.viewModelFactory.makeHomeViewModel()))
+        case .programsScreen:
+            return  AnyView(ProgramsScreen(viewModel: self.viewModelFactory.makeProgramsViewModel()))
+        case .crsScreen:
+            return   AnyView(CrsScreen(viewModel: self.viewModelFactory.makeCrsViewModel()))
+        case .profileScreen:
+            return   AnyView(ProfileScreen(viewModel: self.viewModelFactory.makeProfileViewModel()))
+        case .processScreen:
+            return AnyView(ProcessScreen(viewModel: self.viewModelFactory.makeProcessViewModel()))
+        case .onboardingScreen:
+            return AnyView(OnboardingScreen(viewModel: self.viewModelFactory.makeOnboardingViewModel()))
+        case .signup:
+            return AnyView(SignupScreen(viewModel: self.viewModelFactory.makeSignupViewModel()))
+        case .login:
+            return AnyView(LoginScreen(viewModel: self.viewModelFactory.makeLoginViewModel()))
+        case .forgetPassword:
+            return AnyView(ForgetPasswordScreen())
         }
         
     }
@@ -49,7 +66,7 @@ class ViewFactoryImp: ViewFactory {
             return AnyView(EmptyView())
         }
     }
-     
+    
     func build(fullScreenCover: FullScreenCover) -> AnyView {
         switch fullScreenCover {
             
@@ -58,7 +75,7 @@ class ViewFactoryImp: ViewFactory {
             
         }
     }
-     
+    
 }
 
 

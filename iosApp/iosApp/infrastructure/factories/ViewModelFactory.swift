@@ -11,10 +11,20 @@ import shared
 
 protocol ViewModelFactory {
    
-    func makeHomeViewModel() -> HomeIOSViewModel
+    func makeDashboardViewModel() -> DashboardViewModel
+    func makeHomeViewModel() -> HomeViewModel
+    func makeProcessViewModel() -> ProcessViewModel
+    func makeProgramsViewModel() -> ProgramsViewModel
+    func makeCrsViewModel() -> CrsViewModel
+    func makeProfileViewModel () -> ProfileViewModel
+    func makeOnboardingViewModel() -> OnboardingViewModel
+    func makeLoginViewModel() -> LoginViewModel
+    func makeSignupViewModel() -> SignupViewModel
+    
 }
  
 class ViewModelFactoryImpl: ViewModelFactory {
+    
     let sharedViewModelProvider : SharedViewModelProvider
     let coordinatorFactory : CoordinatorFactory
     
@@ -24,9 +34,40 @@ class ViewModelFactoryImpl: ViewModelFactory {
     }
     
      
-    func makeHomeViewModel() -> HomeIOSViewModel {
-        HomeIOSViewModel(sharedViewModel: sharedViewModelProvider.getHomeViewModel())
+    func makeHomeViewModel() -> HomeViewModel {
+        HomeViewModel(coordinator: coordinatorFactory.makeHomeCoordinator(), viewModel: sharedViewModelProvider.getHomeViewModel())
     }
     
+    func makeDashboardViewModel() -> DashboardViewModel {
+        DashboardViewModel(coordinator: coordinatorFactory.makeDashboardCoordinator(), vmShared: sharedViewModelProvider.getDashboardViewModel())
+    }
+    
+    func makeProcessViewModel() -> ProcessViewModel {
+        ProcessViewModel(coordinator: coordinatorFactory.makeProcessCoordinator(), vmShared: sharedViewModelProvider.getProcessViewModel())
+    }
+    
+    func makeProgramsViewModel() -> ProgramsViewModel {
+        ProgramsViewModel(coordinator: coordinatorFactory.makeProgramsCoordinator(), vmShared: sharedViewModelProvider.getProgramsViewModel())
+    }
+    
+    func makeCrsViewModel() -> CrsViewModel {
+        CrsViewModel(coordinator: coordinatorFactory.makeCrsCoordinator(), vmShared: sharedViewModelProvider.getCrsViewModel())
+    }
+    
+    func makeProfileViewModel() -> ProfileViewModel {
+        ProfileViewModel(coordinator: coordinatorFactory.makeProfileCoordinator(), vmShared: sharedViewModelProvider.getProfileViewModel())
+    }
+     
+    func makeOnboardingViewModel() -> OnboardingViewModel {
+        OnboardingViewModel(coordinator: coordinatorFactory.makeOnboardingCoordinator(), vmShared: sharedViewModelProvider.getOnboardingViewModel())
+    }
+    
+    func makeLoginViewModel() -> LoginViewModel {
+        LoginViewModel(coordinator: coordinatorFactory.makeLoginCoordinator(), vmShared: sharedViewModelProvider.getLoginViewModel())
+    }
+    
+    func makeSignupViewModel() -> SignupViewModel {
+        SignupViewModel(coordinator: coordinatorFactory.makeSignupCoordinator(), vmShared: sharedViewModelProvider.getSignupViewModel())
+    }
 }
 

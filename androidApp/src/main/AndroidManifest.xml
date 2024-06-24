@@ -4,12 +4,13 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".CryptoKoinApp"
+        android:name=".CanImmigrateApp"
         android:allowBackup="false"
         android:supportsRtl="true"
-        android:label="CryptoKoin"
+        android:label="CanImmigrate"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
+
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"

@@ -10,8 +10,6 @@ import Foundation
 import SwiftUI
 
 enum CustomFontWeight {
-    case thin
-    case extraLight
     case light
     case regular
     case medium
@@ -20,19 +18,17 @@ enum CustomFontWeight {
     
     var fontName: String {
         switch self {
-        case .regular: return "DMSans-Regular"
-        case .bold: return "DMSans-Bold"
-        case .medium: return "DMSans-Medium"
-        case .thin:  return "DMSans-Thin"
-        case .extraLight:  return "DMSans-ExtraLight"
-        case .light:  return "DMSans-Liight"
-        case .semiBold:  return "DMSans-SemiBold"
+        case .regular: return "OpenSans-Regular"
+        case .bold: return "OpenSans-Bold"
+        case .medium: return "OpenSans-Medium"
+        case .light:  return "OpenSans-Light"
+        case .semiBold:  return "OpenSans-SemiBold"
         }
     }
 }
 
 extension View {
-    func customFont(size: CGFloat, weight: CustomFontWeight = .regular) -> some View {
+    func customFont(_ size: CGFloat, weight: CustomFontWeight = .regular) -> some View {
         self.modifier(CustomFontModifier(name: weight.fontName, size: size))
     }
 }

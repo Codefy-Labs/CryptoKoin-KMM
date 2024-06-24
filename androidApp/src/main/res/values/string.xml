@@ -1,4 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Onboarding Steps -->
+    <string name="immigration_status_title">Immigration Status</string>
+    <string name="immigration_status_description">Are you planning to immigrate to Canada, or are you already here?</string>
+    <string name="immigration_status_option_1">Planning to immigrate</string>
+    <string name="immigration_status_option_2">Already in Canada</string>
 
+    <string name="pathway_title">Pathway</string>
+    <string name="pathway_description">Which immigration pathway are you applying for?</string>
+    <string name="pathway_option_1">Express Entry</string>
+    <string name="pathway_option_2">Provincial Nominee Program</string>
+    <string name="pathway_option_3">Family Sponsorship</string>
+    <string name="pathway_option_4">Study Permit</string>
+    <string name="pathway_option_5">Work Permit</string>
+    <string name="pathway_option_6">Refugee Status</string>
+    <string name="pathway_option_7">Startup Visa</string>
+    <string name="pathway_option_8">Self-employed Persons Program</string>
+    <string name="pathway_option_9">Atlantic Immigration Program</string>
+    <string name="pathway_option_10">Quebec-selected Skilled Workers</string>
+
+    <string name="target_province_title">Target Province</string>
+    <string name="target_province_description">Which province or territory are you planning to settle in?</string>
+    <string name="target_province_option_1">Alberta</string>
+    <string name="target_province_option_2">British Columbia</string>
+    <string name="target_province_option_3">Manitoba</string>
+    <string name="target_province_option_4">New Brunswick</string>
+    <string name="target_province_option_5">Newfoundland and Labrador</string>
+    <string name="target_province_option_6">Northwest Territories</string>
+    <string name="target_province_option_7">Nova Scotia</string>
+    <string name="target_province_option_8">Nunavut</string>
+    <string name="target_province_option_9">Ontario</string>
+    <string name="target_province_option_10">Prince Edward Island</string>
+    <string name="target_province_option_11">Quebec</string>
+    <string name="target_province_option_12">Saskatchewan</string>
+    <string name="target_province_option_13">Yukon</string>
+
+    <string name="language_proficiency_title">Language Proficiency</string>
+    <string name="language_proficiency_description">What is your level of proficiency in English and/or French?</string>
+    <string name="language_proficiency_option_1">Beginner</string>
+    <string name="language_proficiency_option_2">Intermediate</string>
+    <string name="language_proficiency_option_3">Advanced</string>
+    <string name="language_proficiency_option_4">Fluent</string>
+    <string name="language_proficiency_option_5">Native Speaker</string>
+
+    <string name="employment_status_title">Employment Status</string>
+    <string name="employment_status_description">What is your current employment status?</string>
+    <string name="employment_status_option_1">Employed</string>
+    <string name="employment_status_option_2">Self-employed</string>
+    <string name="employment_status_option_3">Unemployed</string>
+    <string name="employment_status_option_4">Student</string>
+    <string name="employment_status_option_5">Retired</string>
+
+    <string name="occupation_industry_title">Occupation &amp; Industry</string>
+    <string name="occupation_industry_description">What is your occupation or industry of expertise?</string>
+    <string name="occupation_industry_option_1">Information Technology</string>
+    <string name="occupation_industry_option_2">Healthcare</string>
+    <string name="occupation_industry_option_3">Engineering</string>
+    <string name="occupation_industry_option_4">Education</string>
+    <string name="occupation_industry_option_5">Finance</string>
+    <string name="occupation_industry_option_6">Hospitality</string>
+    <string name="occupation_industry_option_7">Retail</string>
+    <string name="occupation_industry_option_8">Construction</string>
+    <string name="occupation_industry_option_9">Agriculture</string>
+    <string name="occupation_industry_option_10">Arts and Entertainment</string>
+    <string name="occupation_industry_option_11">Other</string>
+
+    <string name="education_title">Education</string>
+    <string name="education_description">What is your highest level of education?</string>
+    <string name="education_option_1">High School</string>
+    <string name="education_option_2">Vocational Training</string>
+    <string name="education_option_3">Associate Degree</string>
+    <string name="education_option_4">Bachelor\'s Degree</string>
+    <string name="education_option_5">Master\'s Degree</string>
+    <string name="education_option_6">Doctorate</string>
+    <string name="education_option_7">Other</string>
+
+    <string name="family_status_title">Family Status</string>
+    <string name="family_status_description">Are you immigrating alone or with family?</string>
+    <string name="family_status_option_1">Alone</string>
+    <string name="family_status_option_2">With Family</string>
+
+    <string name="housing_preferences_title">Housing Preferences</string>
+    <string name="housing_preferences_description">What type of housing are you looking for?</string>
+    <string name="housing_preferences_option_1">Apartment</string>
+    <string name="housing_preferences_option_2">House</string>
+    <string name="housing_preferences_option_3">Shared Accommodation</string>
+    <string name="housing_preferences_option_4">Temporary Housing</string>
+    <string name="housing_preferences_option_5">Other</string>
+
+    <string name="settlement_services_title">Settlement Services</string>
+    <string name="settlement_services_description">What types of settlement services are you interested in?</string>
+    <string name="settlement_services_option_1">Language Classes</string>
+    <string name="settlement_services_option_2">Job Search Assistance</string>
+    <string name="settlement_services_option_3">Housing Assistance</string>
+    <string name="settlement_services_option_4">Legal Services</string>
+    <string name="settlement_services_option_5">Healthcare Services</string>
+    <string name="settlement_services_option_6">Community Integration Programs</string>
+    <string name="settlement_services_option_7">Other</string>
+
+    <string name="transportation_needs_title">Transportation Needs</string>
+    <string name="transportation_needs_description">Do you need assistance with transportation options?</string>
+    <string name="transportation_needs_option_1">Yes</string>
+    <string name="transportation_needs_option_2">No</string>
 </resources>

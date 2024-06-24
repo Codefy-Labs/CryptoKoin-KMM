@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "com.codefylabs.www.cryptokoin.android"
+    namespace = "com.codefylabs.www.canimmigrate.android"
     compileSdk = 34
     defaultConfig {
-        applicationId = "com.codefylabs.www.cryptokoin.android"
+        applicationId = "com.codefylabs.www.canimmigrate.android"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

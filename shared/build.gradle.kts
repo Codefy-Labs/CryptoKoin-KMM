@@ -70,7 +70,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.codefylabs.www.cryptokoin"
+    namespace = "com.codefylabs.www.canimmigrate"
     compileSdk = 34
     defaultConfig {
         minSdk = 24

@@ -28,18 +28,17 @@ struct ContentView: View {
             }
         }.navigationBarHidden(true) // Hide the default navigation bar
             .onAppear(perform: {
-                withAnimation{
-                    navigator.replaceRootView(.homeScreen)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    withAnimation{
+                        navigator.replaceRootView(.dashboardScreen)
+                    }
                 }
             })
+            .accentColor(.red)
             .toastView(toast: $toastManager.toast)
           
         
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+ 
