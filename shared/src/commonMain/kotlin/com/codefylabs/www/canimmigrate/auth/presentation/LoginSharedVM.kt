@@ -1,18 +1,20 @@
 package com.codefylabs.www.canimmigrate.auth.presentation
 
+import com.codefylabs.www.canimmigrate.auth.domain.models.GoogleUser
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.LoginUseCase
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.SessionUseCase
 import com.codefylabs.www.canimmigrate.core.util.Either
 import com.codefylabs.www.canimmigrate.core.util.Event
 import com.codefylabs.www.canimmigrate.core.util.State
 import com.codefylabs.www.canimmigrate.core.util.StateViewModel
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginSharedVM(
     private val loginUseCase: LoginUseCase,
-    val sessionUseCase: SessionUseCase,
+    private val sessionUseCase: SessionUseCase,
 ) : StateViewModel<LoginEvent, LoginViewState>(LoginViewState.initial()) {
 
     init {
@@ -21,6 +23,12 @@ class LoginSharedVM(
                 updateState(newState = state.value.copy(emailId = it))
             }
         }
+    }
+
+    fun loginWithGoogle(googleUser: GoogleUser){
+      coroutine.launch {
+           Napier.i("GoogleUser -> ${googleUser}")
+      }
     }
 
     fun onChangeEmailId(email: String) =

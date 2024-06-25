@@ -1,4 +1,5 @@
 import SwiftUI
+import GoogleSignIn
 import shared
 
 struct ContentView: View {
@@ -36,9 +37,8 @@ struct ContentView: View {
             })
             .accentColor(.red)
             .toastView(toast: $toastManager.toast)
-          
         
     }
 }
 
- 
+

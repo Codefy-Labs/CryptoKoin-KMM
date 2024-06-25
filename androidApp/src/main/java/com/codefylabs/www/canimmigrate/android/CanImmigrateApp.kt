@@ -16,6 +16,7 @@ import com.codefylabs.www.canimmigrate.dashboard.presentation.ProgramsSharedVM
 import com.codefylabs.www.canimmigrate.dashboard.presentation.onboarding.OnboardingSharedVM
 import com.codefylabs.www.canimmigrate.initKoin
 import com.codefylabs.www.canimmigrate.settings.presentation.SettingSharedViewModel
+import com.google.firebase.FirebaseApp
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,7 +26,7 @@ class CanImmigrateApp : Application() {
     override fun onCreate() {
         super.onCreate()
         initializeLogger()
-
+        FirebaseApp.initializeApp(this)
         initKoin(module {
             single<Context> { this@CanImmigrateApp }
 
@@ -37,7 +38,7 @@ class CanImmigrateApp : Application() {
             viewModel { SettingSharedViewModel(get()) }
             viewModel { DashboardSharedVM(get()) }
             viewModel { OnboardingSharedVM(get(), get()) }
-            viewModel { LoginSharedVM(get(), get()) }
+            viewModel { LoginSharedVM(get(), get() ) }
             viewModel { SignUpSharedVM(get()) }
 
             factory {

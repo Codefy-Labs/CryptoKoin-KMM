@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="default_web_client_id">900137565544-g8angr9pd71nmb2bv7cdm9eelgr6n0jp.apps.googleusercontent.com</string>
+
     <!-- Onboarding Steps -->
     <string name="immigration_status_title">Immigration Status</string>
     <string name="immigration_status_description">Are you planning to immigrate to Canada, or are you already here?</string>

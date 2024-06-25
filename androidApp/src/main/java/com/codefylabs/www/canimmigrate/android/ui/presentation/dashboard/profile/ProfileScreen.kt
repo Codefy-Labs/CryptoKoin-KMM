@@ -41,9 +41,9 @@ fun NavHostController.navigateToProfileScreen(navOptions: NavOptions? = null) {
     navigate(route = PROFILE_NAV_ROUTE, navOptions = navOptions)
 }
 
-fun NavGraphBuilder.profileScreenRoute() {
+fun NavGraphBuilder.profileScreenRoute(navigateToLogin: () -> Unit) {
     composable(route = PROFILE_NAV_ROUTE) {
-        ProfileScreen()
+        ProfileScreen(navigateToLogin = navigateToLogin )
     }
 }
 
@@ -58,7 +58,7 @@ private fun PreviewProfileBody() {
 }
 
 @Composable
-private fun ProfileScreen() {
+private fun ProfileScreen(navigateToLogin: () -> Unit) {
     val lazyColumnState = rememberScrollState()
     Scaffold(topBar = {
         TopBar(title = "Profile", actions = {
@@ -71,6 +71,9 @@ private fun ProfileScreen() {
                 .verticalScroll(lazyColumnState)
                 .padding(innerPadding),
         ) {
+            Button(onClick = navigateToLogin) {
+                Text(text = "Login Now")
+            }
             ProfileBody()
         }
     }
@@ -85,6 +88,7 @@ private fun ProfileBody() {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Spacer(modifier = Modifier.height(16.dp))
         ProfilePicture()
         Spacer(modifier = Modifier.height(16.dp))

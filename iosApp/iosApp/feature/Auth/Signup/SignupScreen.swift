@@ -19,8 +19,12 @@ struct SignupScreen: View {
     var body: some View {
         ScrollView(showsIndicators : false){
             VStack(spacing : 20) {
-                // Logo
-                Spacer()
+             
+                HStack{ 
+                    BackButton(onClick: viewModel.coordinator.navigateUp)
+                    Spacer()
+                }
+                
                 Image("logo-transparent")
                     .resizable()
                     .scaledToFit()
@@ -105,6 +109,7 @@ struct SignupScreen: View {
             }
         }
         .padding()
+        .navigationBarBackButtonHidden()
     }
 }
 

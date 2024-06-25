@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -60,4 +62,13 @@ dependencies {
     implementation(libs.android.firebase.analytics)
 
     implementation(libs.mixpanel.android)
+
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.0.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.firebaseui:firebase-ui-auth:7.2.0")
+    implementation("com.google.android.gms:play-services-auth:20.6.0")
+
+
 }

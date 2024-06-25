@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "900137565544",
+    "project_id": "mappleleaf-5e412",
+    "storage_bucket": "mappleleaf-5e412.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900137565544:android:3ecf9f96c49d58bf53aadd",
+        "android_client_info": {
+          "package_name": "com.codefylabs.www.canimmigrate.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900137565544-14h8aeaam74m4rejqnqp4ahv0ejn37jb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codefylabs.www.canimmigrate.android",
+            "certificate_hash": "4eba26650401a6c4d1868724c9b834be689a1280"
+          }
+        },
+        {
+          "client_id": "900137565544-g8angr9pd71nmb2bv7cdm9eelgr6n0jp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtCtv4mjLWjUNPNylElmvY-yvyXcqSnq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900137565544-g8angr9pd71nmb2bv7cdm9eelgr6n0jp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

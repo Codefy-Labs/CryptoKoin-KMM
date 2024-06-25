@@ -11,7 +11,7 @@ import shared
 
 class ProfileViewModel : ObservableObject {
     
-    private let coordinator : ProfileCoordinator
+    let coordinator : ProfileCoordinator
     private let vmShared : ProfileSharedVM
     
     

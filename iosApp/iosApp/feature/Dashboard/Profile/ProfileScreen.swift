@@ -14,7 +14,13 @@ struct ProfileScreen: View {
     var body: some View {
         VStack {
             TopAppBar(title: "Profile")
+            
+            Button("Login", action: {
+                viewModel.coordinator.showLogin()
+            })
+            
             ProfileBody()
+            
         }
         .task{
             viewModel.observe()
@@ -26,6 +32,7 @@ struct ProfileBody: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false, content: {
             VStack(spacing: 16) {
+                 
                 ProfilePicture()
                 
                 VStack{

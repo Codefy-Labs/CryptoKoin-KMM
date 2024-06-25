@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol ProfileCoordinator : Coordinator {
-    
+    func showLogin()
 }
 
 
@@ -19,6 +19,10 @@ class ProfileCoordinatorImpl : ProfileCoordinator {
     
     required init(navigator: Navigator) {
         self.navigator = navigator
+    }
+    
+    func showLogin() {
+        navigator.push(.login)
     }
      
 }

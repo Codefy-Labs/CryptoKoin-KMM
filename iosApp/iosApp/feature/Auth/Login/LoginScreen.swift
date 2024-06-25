@@ -16,8 +16,11 @@ struct LoginScreen: View {
 
     var body: some View {
         VStack(spacing: 20) {
+            HStack{
+                BackButton(onClick: viewModel.coordinator.navigateUp)
+                Spacer()
+            }
             
-            Spacer()
             Image("logo-transparent")
                 .resizable()
                 .scaledToFit()
@@ -70,7 +73,7 @@ struct LoginScreen: View {
 
             // Login with Google Button
             Button(action: {
-                // Login with Google action
+                Task{  await viewModel.signInWithGoogle()   }
             }) {
                 HStack {
                     Image( "ic-google")
@@ -79,6 +82,12 @@ struct LoginScreen: View {
                     Spacer().frame(width: 12)
                     Text("Login with Google")
                         .customFont(16, weight: .medium)
+                    if viewModel.googleSigInProcessing {
+                        Spacer().frame(width: 12)
+                        ProgressView()
+                            .frame(width: 24, height: 24)
+                    }
+                    
                 }
                 .foregroundColor(.black)
                 .frame(maxWidth: .infinity)
@@ -89,13 +98,14 @@ struct LoginScreen: View {
                         .stroke(Color.gray, lineWidth: 1)
                 )
             }
+            .disabled(viewModel.googleSigInProcessing)
             .padding(.horizontal)
 
             // Sign Up Link
             HStack {
                 Text("Don’t have an account?")
                 Button(action: {
-                    // Sign up action
+                    viewModel.coordinator.showSignup()
                 }) {
                     Text("Sign Up")
                         .foregroundColor(.blue)
@@ -104,6 +114,7 @@ struct LoginScreen: View {
             .padding(.top, 20)
         }
         .padding()
+        .navigationBarBackButtonHidden()
     }
 }
 

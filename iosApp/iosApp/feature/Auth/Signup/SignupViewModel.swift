@@ -12,7 +12,7 @@ import shared
 class SignupViewModel : ObservableObject {
     
     
-    private let coordinator : SignupCoordinator
+    let coordinator : SignupCoordinator
     private let vmShared : SignUpSharedVM
     
     init(coordinator: SignupCoordinator, vmShared: SignUpSharedVM) {

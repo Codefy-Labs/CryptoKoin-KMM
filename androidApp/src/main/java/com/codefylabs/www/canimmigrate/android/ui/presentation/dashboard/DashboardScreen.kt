@@ -12,9 +12,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.codefylabs.www.canimmigrate.android.R
+import com.codefylabs.www.canimmigrate.android.core.navigation.navigateToAuthentication
 import com.codefylabs.www.canimmigrate.android.ui.components.navigation.BottomNavigationBar
 import com.codefylabs.www.canimmigrate.android.ui.components.base.OnEvent
 import com.codefylabs.www.canimmigrate.android.ui.onboarding.navigateToOnBoarding
+import com.codefylabs.www.canimmigrate.android.ui.presentation.auth.login.navigateToLoginScreen
 import com.codefylabs.www.canimmigrate.android.ui.presentation.blogdetail.navigateToBlogDetail
 import com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.csr.CSR_NAV_ROUTE
 import com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.csr.csrScreenRoute
@@ -49,6 +51,8 @@ fun NavGraphBuilder.dashboardScreenRoute(navHostController: NavHostController) {
             navHostController.navigateToBlogDetail()
         }, navigateToOnboardingSurvey = {
             navHostController.navigateToOnBoarding()
+        }, navigateToLogin = {
+            navHostController.navigateToAuthentication()
         })
     }
 }
@@ -57,6 +61,7 @@ fun NavGraphBuilder.dashboardScreenRoute(navHostController: NavHostController) {
 private fun DashboardScreen(
     navigateToBlogDetail: (String) -> Unit,
     navigateToOnboardingSurvey: () -> Unit,
+    navigateToLogin: () -> Unit,
     viewModel: DashboardSharedVM = koinViewModel(),
 ) {
 
@@ -88,7 +93,7 @@ private fun DashboardScreen(
             processScreenRoute()
             csrScreenRoute()
             programsScreenRoute()
-            profileScreenRoute()
+            profileScreenRoute(navigateToLogin = navigateToLogin)
         }
         Surface(shadowElevation = 4.dp) {
             BottomNavigationBar(navController = bottomNavController, items = items)

@@ -1,6 +1,5 @@
 package com.codefylabs.www.canimmigrate.android.ui.presentation.auth.login
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +24,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.codefylabs.www.canimmigrate.android.R
+import com.codefylabs.www.canimmigrate.android.core.GoogleSignInHelper
+import com.codefylabs.www.canimmigrate.android.ui.components.GoogleSignInButton
+import com.codefylabs.www.canimmigrate.android.ui.components.base.toast
 import com.codefylabs.www.canimmigrate.android.ui.theme.AppTheme
+import com.codefylabs.www.canimmigrate.auth.presentation.LoginSharedVM
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 
 const val LOGIN_NAV_ROUTE = "LOGIN_NAV_ROUTE"
@@ -54,10 +60,16 @@ fun LoginScreen(
     navigateUp: () -> Unit,
     navigateToSignUp: () -> Unit,
     navigateToForgetPassword: () -> Unit,
+    viewModel: LoginSharedVM = koinViewModel(),
 ) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var rememberMe by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
+    val coroutine = rememberCoroutineScope()
+    val state by viewModel.state.collectAsState()
+
+    val googleSignInHelper = remember {
+        GoogleSignInHelper()
+    }
 
     Scaffold(
         topBar = {
@@ -88,9 +100,9 @@ fun LoginScreen(
 
             // Username TextField
             OutlinedTextField(
-                value = username,
-                onValueChange = { username = it },
-                label = { Text("User name") },
+                value = state.emailId,
+                onValueChange = viewModel::onChangeEmailId,
+                label = { Text("Email Id") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
@@ -103,8 +115,8 @@ fun LoginScreen(
 
             // Password TextField
             OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = state.password,
+                onValueChange = viewModel::onChangePassword,
                 label = { Text("Password") },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -118,7 +130,6 @@ fun LoginScreen(
 
                 )
 
-            // Remember Me and Forgot Password
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -156,32 +167,23 @@ fun LoginScreen(
             }
 
             // Login with Google Button
-            OutlinedButton(
-                onClick = { /* Login with Google action */ },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
-                colors = ButtonDefaults.outlinedButtonColors(),
-                shape = RoundedCornerShape(8.dp),
-                border = BorderStroke(
-                    1.dp,
-                    color = MaterialTheme.colorScheme.onBackground.copy(0.4f)
-                )
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_google), // Replace with a suitable Google logo resource
-                    contentDescription = "Google Logo",
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    "Login with Google", style = MaterialTheme.typography.bodyMedium.copy(
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 16.sp,
-                        color = MaterialTheme.colorScheme.onBackground.copy(0.7f)
-                    )
-                )
-            }
+            GoogleSignInButton(enabled = true, onSuccess = { account ->
+                coroutine.launch {
+                    googleSignInHelper.getGoogleUser(
+                        context = context,
+                        account = account,
+                        onSuccess = { googleUser ->
+                            viewModel.loginWithGoogle(googleUser)
+                        },
+                        onError = { error ->
+                            context.toast(error)
+                        })
+                }
+            }, onError = {
+                context.toast(it)
+            })
+
+            Spacer(modifier = Modifier.height(20.dp))
 
             // Sign Up Link
             Row(
