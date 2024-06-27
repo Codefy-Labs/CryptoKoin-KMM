@@ -10,10 +10,12 @@ import Foundation
  
 protocol SignupCoordinator : Coordinator {
     func navigateUp ()
+    func navigateUpToRoot ()
 }
 
 
 class SignupCoordinatorImpl : SignupCoordinator {
+   
     var navigator: Navigator
     
     required init(navigator: Navigator) {
@@ -22,6 +24,10 @@ class SignupCoordinatorImpl : SignupCoordinator {
     
     func navigateUp() {
         navigator.pop()
+    }
+    
+    func navigateUpToRoot() {
+        navigator.popToRoot()
     }
  
 }

@@ -45,7 +45,9 @@ abstract class StateViewModel<E : Event, S : State>(initialState: S) : ViewModel
     protected fun sendEventSync(event: E) = GlobalScope.launch { _event.send(event) }
 
     protected fun updateState(newState: S) {
-        _state.value = newState
+       CoroutineScope(Dispatchers.Main.immediate).launch {
+           _state.value = newState
+       }
     }
 
     override fun onCleared() {

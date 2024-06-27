@@ -20,6 +20,8 @@ protocol ViewModelFactory {
     func makeOnboardingViewModel() -> OnboardingViewModel
     func makeLoginViewModel() -> LoginViewModel
     func makeSignupViewModel() -> SignupViewModel
+    func makeForgetPasswordViewModel() -> ForgetPasswordViewModel
+    func makeNewsDetailViewModel(newsId : String) -> NewsDetailViewModel
     
 }
  
@@ -68,6 +70,14 @@ class ViewModelFactoryImpl: ViewModelFactory {
     
     func makeSignupViewModel() -> SignupViewModel {
         SignupViewModel(coordinator: coordinatorFactory.makeSignupCoordinator(), vmShared: sharedViewModelProvider.getSignupViewModel())
+    }
+    
+    func makeForgetPasswordViewModel() -> ForgetPasswordViewModel {
+        ForgetPasswordViewModel(sharedForgetPasswordViewModel: sharedViewModelProvider.getForgetPasswordViewModel(), coordinator: coordinatorFactory.makeForgetPasswordCoordinator())
+    }
+    
+    func makeNewsDetailViewModel(newsId : String) -> NewsDetailViewModel {
+        NewsDetailViewModel(coordinator: coordinatorFactory.makeNewsDetailCoordinator(), vmShared: sharedViewModelProvider.getNewsDetailViewModel(newsId: newsId))
     }
 }
 

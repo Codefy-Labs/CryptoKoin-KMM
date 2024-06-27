@@ -9,7 +9,6 @@ class LocalDataObject : RealmObject {
     var id: String = "LocalData"
     var onboardingSurvey: RealmList<SurveyDataObject> ? = null
     var isLaunchOnboardingFinished: Boolean = false
-    var isDarkModelOn: Boolean = false
 
     companion object {
         fun init() = LocalDataObject()

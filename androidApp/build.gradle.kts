@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.tooling)
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    implementation("com.airbnb.android:lottie-compose:6.4.0")
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.koin.android)
@@ -60,15 +62,10 @@ dependencies {
 
     implementation(platform(libs.android.firebase.bom))
     implementation(libs.android.firebase.analytics)
+    implementation(libs.android.firebase.crashlytics)
+    implementation(libs.android.firebase.ui.auth)
+    implementation(libs.android.play.services.auth)
 
-    implementation(libs.mixpanel.android)
-
-    // Import the Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:32.0.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-crashlytics")
-    implementation("com.firebaseui:firebase-ui-auth:7.2.0")
-    implementation("com.google.android.gms:play-services-auth:20.6.0")
-
+    implementation(libs.android.mixpanel)
 
 }

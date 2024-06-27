@@ -6,5 +6,6 @@ data class Feed(
     val daysToGo: String,
     val views: String,
     val shares: String,
-    val key: Int = (Int.MIN_VALUE..Int.MAX_VALUE).random(),
+    val id: String = (Int.MIN_VALUE..Int.MAX_VALUE).random().toString(),
+    val url : String? = null
 )

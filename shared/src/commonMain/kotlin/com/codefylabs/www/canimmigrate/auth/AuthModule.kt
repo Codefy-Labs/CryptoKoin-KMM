@@ -13,12 +13,14 @@ import com.codefylabs.www.canimmigrate.auth.domain.usescases.ForgotPasswordUseCa
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.ForgotPasswordUseCaseImpl
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.LocalDataUseCase
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.LocalDataUseCaseImpl
-import com.codefylabs.www.canimmigrate.auth.domain.usescases.LoginUseCase
-import com.codefylabs.www.canimmigrate.auth.domain.usescases.LoginUseCaseImpl
+import com.codefylabs.www.canimmigrate.auth.domain.usescases.SignInUseCase
+import com.codefylabs.www.canimmigrate.auth.domain.usescases.SignInUseCaseImpl
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.ResetPasswordUseCase
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.ResetPasswordUseCaseImpl
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.SessionUseCase
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.SessionUseCaseImpl
+import com.codefylabs.www.canimmigrate.auth.domain.usescases.SignInWithGoogleUseCase
+import com.codefylabs.www.canimmigrate.auth.domain.usescases.SignInWithGoogleUseCaseImpl
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.SignupUseCase
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.SignupUseCaseImpl
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.UpdatePasswordUseCase
@@ -65,8 +67,12 @@ val authModule = module {
         LocalDataUseCaseImpl(get())
     }
 
-    single<LoginUseCase> {
-        LoginUseCaseImpl(get())
+    single<SignInUseCase> {
+        SignInUseCaseImpl(get())
+    }
+
+    single<SignInWithGoogleUseCase> {
+        SignInWithGoogleUseCaseImpl(get())
     }
 
     single<SignupUseCase> {

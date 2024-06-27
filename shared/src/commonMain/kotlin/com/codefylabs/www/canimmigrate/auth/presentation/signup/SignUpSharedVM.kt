@@ -1,5 +1,6 @@
 package com.codefylabs.www.canimmigrate.auth.presentation.signup
 
+import com.codefylabs.www.canimmigrate.auth.domain.usescases.SignInWithGoogleUseCase
 import com.codefylabs.www.canimmigrate.auth.domain.usescases.SignupUseCase
 import com.codefylabs.www.canimmigrate.auth.presentation.components.PasswordValidState
 import com.codefylabs.www.canimmigrate.core.util.Either
@@ -7,9 +8,11 @@ import com.codefylabs.www.canimmigrate.core.util.Event
 import com.codefylabs.www.canimmigrate.core.util.State
 import com.codefylabs.www.canimmigrate.core.util.StateViewModel
 import com.codefylabs.www.canimmigrate.core.util.Validator
+import kotlinx.coroutines.launch
 
 class SignUpSharedVM(
-    private val signupUseCase: SignupUseCase
+    private val signupUseCase: SignupUseCase,
+    private val signInWithGoogleUseCase: SignInWithGoogleUseCase,
 ) : StateViewModel<SignupViewEvent, SignupViewState>(SignupViewState()) {
 
     fun onPasswordChanged(password: String) {
@@ -17,6 +20,14 @@ class SignUpSharedVM(
             state.value.copy(
                 password = password,
                 passwordValidState = PasswordValidState.validatePassword(password)
+            )
+        )
+    }
+
+    fun onConfirmPasswordChange(password: String) {
+        updateState(
+            state.value.copy(
+                confirmPassword = password,
             )
         )
     }
@@ -60,26 +71,49 @@ class SignUpSharedVM(
             return false
         }
 
+        if (state.value.password != state.value.confirmPassword) {
+            sendEventSync(SignupViewEvent.Error("Passwords do not match."))
+            return false
+        }
+
         return true
     }
 
-    suspend fun signUp() {
+    fun signUp() {
+        coroutine.launch {
+            if (!isAllFieldValid())
+                return@launch
 
-        if (!isAllFieldValid())
-            return
+            updateState(state.value.copy(isLoading = true))
 
-        updateState(state.value.copy(isLoading = true))
+            when (val result =
+                signupUseCase(state.value.name, state.value.email, state.value.password)) {
+                is Either.Error -> {
+                    updateState(state.value.copy(isLoading = false))
+                    sendEvent(SignupViewEvent.Error(result.message))
+                }
 
-        when (val result =
-            signupUseCase(state.value.name, state.value.email, state.value.password)) {
-            is Either.Error -> {
-                updateState(state.value.copy(isLoading = false))
-                sendEvent(SignupViewEvent.Error(result.message))
+                is Either.Success -> {
+                    updateState(state.value.copy(isLoading = false))
+                    sendEvent(SignupViewEvent.VerificationEmailSent(result.data))
+                }
             }
+        }
+    }
 
-            is Either.Success -> {
-                updateState(state.value.copy(isLoading = false))
-                sendEvent(SignupViewEvent.Success(result.data))
+    fun signUpWithGoogle(idToken: String) {
+        coroutine.launch {
+            updateState(state.value.copy(isGoogleSigning = true))
+            when (val result = signInWithGoogleUseCase(idToken)) {
+                is Either.Error -> {
+                    updateState(state.value.copy(isGoogleSigning = false))
+                    sendEvent(SignupViewEvent.Error(result.message))
+                }
+
+                is Either.Success -> {
+                    updateState(state.value.copy(isGoogleSigning = false))
+                    sendEvent(SignupViewEvent.GoogleSignUpSuccessful("Welcome, ${result.data.name ?: ""}"))
+                }
             }
         }
     }
@@ -88,10 +122,12 @@ class SignUpSharedVM(
 
 data class SignupViewState(
     val isLoading: Boolean = false,
+    val isGoogleSigning: Boolean = false,
     val email: String = "",
     val password: String = "",
+    val confirmPassword: String = "",
     val name: String = "",
-    val passwordValidState: PasswordValidState = PasswordValidState()
+    val passwordValidState: PasswordValidState = PasswordValidState(),
 ) : State {
     companion object {
         fun emptyState() = SignupViewState()
@@ -100,6 +136,7 @@ data class SignupViewState(
 }
 
 sealed class SignupViewEvent : Event {
-    data class Success(val message: String) : SignupViewEvent()
+    data class GoogleSignUpSuccessful(val message: String) : SignupViewEvent()
+    data class VerificationEmailSent(val message: String) : SignupViewEvent()
     data class Error(val error: String) : SignupViewEvent()
 }

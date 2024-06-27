@@ -1,5 +1,6 @@
 package com.codefylabs.www.canimmigrate.android.ui.presentation.auth.login
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,8 +28,11 @@ import androidx.navigation.compose.composable
 import com.codefylabs.www.canimmigrate.android.R
 import com.codefylabs.www.canimmigrate.android.core.GoogleSignInHelper
 import com.codefylabs.www.canimmigrate.android.ui.components.GoogleSignInButton
+import com.codefylabs.www.canimmigrate.android.ui.components.base.OnEvent
 import com.codefylabs.www.canimmigrate.android.ui.components.base.toast
+import com.codefylabs.www.canimmigrate.android.ui.components.base.toastLong
 import com.codefylabs.www.canimmigrate.android.ui.theme.AppTheme
+import com.codefylabs.www.canimmigrate.auth.presentation.LoginEvent
 import com.codefylabs.www.canimmigrate.auth.presentation.LoginSharedVM
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -64,11 +69,16 @@ fun LoginScreen(
 ) {
 
     val context = LocalContext.current
-    val coroutine = rememberCoroutineScope()
     val state by viewModel.state.collectAsState()
 
-    val googleSignInHelper = remember {
-        GoogleSignInHelper()
+    OnEvent(event = viewModel.event) {
+        when (it) {
+            is LoginEvent.Error -> context.toast(it.error)
+            is LoginEvent.NavigateToDashboard -> {
+                context.toastLong(it.message)
+                navigateUp()
+            }
+        }
     }
 
     Scaffold(
@@ -111,6 +121,8 @@ fun LoginScreen(
                     fontSize = 16.sp
                 ),
                 shape = RoundedCornerShape(8.dp),
+                singleLine = true,
+                enabled = !state.isLoading
             )
 
             // Password TextField
@@ -121,14 +133,23 @@ fun LoginScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
-                visualTransformation = PasswordVisualTransformation(),
+                visualTransformation = if (state.passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                 textStyle = MaterialTheme.typography.bodyMedium.copy(
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp
                 ),
                 shape = RoundedCornerShape(8.dp),
-
-                )
+                trailingIcon = {
+                    IconButton(onClick = viewModel::togglePasswordVisibility) {
+                        Icon(
+                            painter = painterResource(id = if (state.passwordVisibility) R.drawable.ic_eye else R.drawable.ic_eye_off),
+                            contentDescription = null
+                        )
+                    }
+                },
+                singleLine = true,
+                enabled = !state.isLoading
+            )
 
             Row(
                 modifier = Modifier
@@ -150,11 +171,12 @@ fun LoginScreen(
 
             // Continue Button
             Button(
-                onClick = { /* Continue button action */ },
+                onClick = viewModel::login,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(8.dp),
+                enabled = !state.isLoading
             ) {
                 Text(
                     "Continue",
@@ -164,24 +186,27 @@ fun LoginScreen(
                         fontSize = 16.sp
                     )
                 )
+
+                AnimatedVisibility(
+                    visible = state.isLoading,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                }
             }
 
             // Login with Google Button
-            GoogleSignInButton(enabled = true, onSuccess = { account ->
-                coroutine.launch {
-                    googleSignInHelper.getGoogleUser(
-                        context = context,
-                        account = account,
-                        onSuccess = { googleUser ->
-                            viewModel.loginWithGoogle(googleUser)
-                        },
-                        onError = { error ->
-                            context.toast(error)
-                        })
-                }
-            }, onError = {
-                context.toast(it)
-            })
+            GoogleSignInButton(
+                text = "Login with Google",
+                isLoading = state.isGoogleSigning,
+                onSuccess = { account ->
+                    account.idToken?.let { token ->
+                        viewModel.signInWithGoogle(token)
+                    } ?: context.toast("Unable to process!")
+                },
+                onError = {
+                    context.toast(it)
+                })
 
             Spacer(modifier = Modifier.height(20.dp))
 

@@ -1,8 +1,17 @@
 package com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
@@ -13,11 +22,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.codefylabs.www.canimmigrate.android.R
 import com.codefylabs.www.canimmigrate.android.core.navigation.navigateToAuthentication
-import com.codefylabs.www.canimmigrate.android.ui.components.navigation.BottomNavigationBar
 import com.codefylabs.www.canimmigrate.android.ui.components.base.OnEvent
-import com.codefylabs.www.canimmigrate.android.ui.onboarding.navigateToOnBoarding
-import com.codefylabs.www.canimmigrate.android.ui.presentation.auth.login.navigateToLoginScreen
-import com.codefylabs.www.canimmigrate.android.ui.presentation.blogdetail.navigateToBlogDetail
+import com.codefylabs.www.canimmigrate.android.ui.components.navigation.BottomNavigationBar
 import com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.csr.CSR_NAV_ROUTE
 import com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.csr.csrScreenRoute
 import com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.feeds.FEEDS_NAV_ROUTE
@@ -28,9 +34,12 @@ import com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.profile
 import com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.profile.profileScreenRoute
 import com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.programs.PROGRAMS_NAV_ROUTE
 import com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.programs.programsScreenRoute
+import com.codefylabs.www.canimmigrate.android.ui.presentation.newsDetail.navigateToNewsDetail
+import com.codefylabs.www.canimmigrate.android.ui.presentation.onboarding.navigateToOnBoarding
 import com.codefylabs.www.canimmigrate.android.ui.presentation.splash.SPLASH_NAV_ROUTE
 import com.codefylabs.www.canimmigrate.dashboard.presentation.DashboardEvent
 import com.codefylabs.www.canimmigrate.dashboard.presentation.DashboardSharedVM
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 const val DASHBOARD_NAV_ROUTE = "DASHBOARD_NAV_ROUTE"
@@ -47,8 +56,8 @@ fun NavHostController.navigateToDashboardScreen(
 
 fun NavGraphBuilder.dashboardScreenRoute(navHostController: NavHostController) {
     composable(route = DASHBOARD_NAV_ROUTE) {
-        DashboardScreen(navigateToBlogDetail = {
-            navHostController.navigateToBlogDetail()
+        DashboardScreen(navigateToNewsDetail = {
+            navHostController.navigateToNewsDetail(it)
         }, navigateToOnboardingSurvey = {
             navHostController.navigateToOnBoarding()
         }, navigateToLogin = {
@@ -59,7 +68,7 @@ fun NavGraphBuilder.dashboardScreenRoute(navHostController: NavHostController) {
 
 @Composable
 private fun DashboardScreen(
-    navigateToBlogDetail: (String) -> Unit,
+    navigateToNewsDetail: (String) -> Unit,
     navigateToOnboardingSurvey: () -> Unit,
     navigateToLogin: () -> Unit,
     viewModel: DashboardSharedVM = koinViewModel(),
@@ -68,7 +77,9 @@ private fun DashboardScreen(
     OnEvent(event = viewModel.event) {
         when (it) {
 
-            DashboardEvent.OpenOnboardingSurvey -> navigateToOnboardingSurvey()
+            DashboardEvent.OpenOnboardingSurvey -> {
+//                navigateToOnboardingSurvey()
+            }
             is DashboardEvent.Success -> Unit
             is DashboardEvent.Error -> Unit
         }
@@ -83,20 +94,36 @@ private fun DashboardScreen(
         Triple(PROFILE_NAV_ROUTE, "Profile", R.drawable.ic_profile)
     )
 
-    Column {
+    var isBottomNavVisible by remember { mutableStateOf(false) } // State to control visibility
+
+    LaunchedEffect(isBottomNavVisible) {
+        delay(400)
+        isBottomNavVisible = true
+    }
+
+    Column(modifier = Modifier.fillMaxSize() ) {
         NavHost(
             navController = bottomNavController,
             startDestination = FEEDS_NAV_ROUTE,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
         ) {
-            feedsScreenRoute(navigateToBlogDetail = navigateToBlogDetail)
+            feedsScreenRoute(navigateToNewsDetail = navigateToNewsDetail)
             processScreenRoute()
             csrScreenRoute()
             programsScreenRoute()
             profileScreenRoute(navigateToLogin = navigateToLogin)
         }
-        Surface(shadowElevation = 4.dp) {
-            BottomNavigationBar(navController = bottomNavController, items = items)
+
+
+        AnimatedVisibility(
+            visible = isBottomNavVisible,
+            enter = slideInVertically(initialOffsetY = { it }),
+            exit = slideOutVertically(targetOffsetY = { it }),
+        ) {
+            Surface(shadowElevation = 6.dp) {
+                BottomNavigationBar(navController = bottomNavController, items = items)
+            }
         }
     }
 

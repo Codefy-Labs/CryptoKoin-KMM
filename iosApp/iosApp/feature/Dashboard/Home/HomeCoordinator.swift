@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol HomeCoordinator : Coordinator {
-    
+    func showNewsDetail(newsId : String)
 }
 
 
@@ -21,6 +21,9 @@ class HomeCoordinatorImpl : HomeCoordinator {
         self.navigator = navigator
     }
      
+    func showNewsDetail(newsId: String) {
+        navigator.push(.newsDetail(newsId: newsId))
+    }
 }
 
 

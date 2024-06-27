@@ -11,6 +11,7 @@ class SessionObject : RealmObject {
     var email: String = ""
     var phoneNumber: String = ""
     var accessToken: String = ""
-    var idToken: String = ""
     var refreshToken: String = ""
+    var name : String = ""
+    var profilePicture : String? = null
 }

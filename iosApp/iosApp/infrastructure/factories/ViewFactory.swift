@@ -40,11 +40,11 @@ class ViewFactoryImp: ViewFactory {
         case .homeScreen:
             return AnyView(HomeScreen(viewModel: self.viewModelFactory.makeHomeViewModel()))
         case .programsScreen:
-            return  AnyView(ProgramsScreen(viewModel: self.viewModelFactory.makeProgramsViewModel()))
+            return AnyView(ProgramsScreen(viewModel: self.viewModelFactory.makeProgramsViewModel()))
         case .crsScreen:
-            return   AnyView(CrsScreen(viewModel: self.viewModelFactory.makeCrsViewModel()))
+            return AnyView(CrsScreen(viewModel: self.viewModelFactory.makeCrsViewModel()))
         case .profileScreen:
-            return   AnyView(ProfileScreen(viewModel: self.viewModelFactory.makeProfileViewModel()))
+            return AnyView(ProfileScreen(viewModel: self.viewModelFactory.makeProfileViewModel()))
         case .processScreen:
             return AnyView(ProcessScreen(viewModel: self.viewModelFactory.makeProcessViewModel()))
         case .onboardingScreen:
@@ -54,7 +54,9 @@ class ViewFactoryImp: ViewFactory {
         case .login:
             return AnyView(LoginScreen(viewModel: self.viewModelFactory.makeLoginViewModel()))
         case .forgetPassword:
-            return AnyView(ForgetPasswordScreen())
+            return AnyView(ForgetPasswordScreen(viewModel: self.viewModelFactory.makeForgetPasswordViewModel()))
+        case .newsDetail(newsId: let newsId):
+            return AnyView(NewsDetailScreen(viewModel: self.viewModelFactory.makeNewsDetailViewModel(newsId: newsId)))
         }
         
     }
@@ -63,7 +65,9 @@ class ViewFactoryImp: ViewFactory {
         switch sheet {
             
         case .blankSheet :
-            return AnyView(EmptyView())
+            return AnyView(Text("Hello World"))
+        case .discussions(id: let id) :
+            return AnyView(DiscussionsView())
         }
     }
     

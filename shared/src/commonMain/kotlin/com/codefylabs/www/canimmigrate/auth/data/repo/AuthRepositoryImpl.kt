@@ -2,7 +2,6 @@ package com.codefylabs.www.canimmigrate.auth.data.repo
 
 import com.codefylabs.www.canimmigrate.auth.data.local.AuthPersistence
 import com.codefylabs.www.canimmigrate.auth.data.local.entity.LocalDataObject
-import com.codefylabs.www.canimmigrate.auth.data.local.entity.SurveyDataObject
 import com.codefylabs.www.canimmigrate.auth.data.remote.api.AuthAPI
 import com.codefylabs.www.canimmigrate.core.data.models.ApiWrapper
 import com.codefylabs.www.canimmigrate.core.util.NetworkResult
@@ -16,7 +15,6 @@ import com.codefylabs.www.canimmigrate.auth.domain.entities.toRealmObject
 import com.codefylabs.www.canimmigrate.auth.domain.entities.toSession
 import com.codefylabs.www.canimmigrate.auth.domain.entities.toSurveyObject
 import com.codefylabs.www.canimmigrate.auth.domain.repo.AuthRepository
-import com.codefylabs.www.canimmigrate.core.util.Either
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -28,30 +26,50 @@ class AuthRepositoryImpl constructor(
     private val json: Json,
 ) : AuthRepository {
 
-
-    override suspend fun login(email: String, password: String): UserInfo =
+    override suspend fun signIn(email: String, password: String): UserInfo =
         when (val result = api.signIn(email, password)) {
             is NetworkResult.Error -> throw result.error
             is NetworkResult.Success -> {
                 val apiData = json.toObject<ApiWrapper<Session>>(result.data.decodeToString())
-                apiData.response?.copy(email = email)?.let { session ->
-                    saveUserSession(session)
-                    UserInfo(
-                        id = session.userId,
-                        userName = "User",
-                        email = session.email,
-                        phone_number = session.phoneNumber,
-                    )
-                } ?: throw Error(apiData.message)
+
+                if (apiData.data == null)
+                    throw Error(apiData.message)
+
+                prefs.writeSession(apiData.data.toRealmObject())
+                UserInfo(
+                    id = apiData.data.userId,
+                    name = apiData.data.name,
+                    email = apiData.data.email,
+                    phone_number = apiData.data.phoneNumber,
+                )
             }
         }
 
-    override suspend fun signup(username: String, email: String, password: String): String =
-        when (val result = api.signUp(name = username, email = email, password = password)) {
+    override suspend fun signInWithGoogle(idToken: String): UserInfo =
+        when (val result = api.signInWithGoogle(idToken)) {
+            is NetworkResult.Error -> throw result.error
+            is NetworkResult.Success -> {
+                val apiData = json.toObject<ApiWrapper<Session>>(result.data.decodeToString())
+
+                if (apiData.data == null)
+                    throw Error(apiData.message)
+
+                prefs.writeSession(apiData.data.toRealmObject())
+                UserInfo(
+                    id = apiData.data.userId,
+                    name = apiData.data.name,
+                    email = apiData.data.email,
+                    phone_number = apiData.data.phoneNumber,
+                )
+            }
+        }
+
+    override suspend fun signUp(name: String, email: String, password: String): String =
+        when (val result = api.signUp(name = name, email = email, password = password)) {
             is NetworkResult.Error -> throw result.error
             is NetworkResult.Success -> {
                 val apiData = json.toObject<ApiWrapper<String?>>(result.data.decodeToString())
-                apiData.response ?: apiData.message.toString()
+                apiData.message.toString()
             }
         }
 
@@ -85,17 +103,13 @@ class AuthRepositoryImpl constructor(
             is NetworkResult.Error -> throw result.error
             is NetworkResult.Success -> {
                 val apiData = json.toObject<ApiWrapper<String?>>(result.data.decodeToString())
-                apiData.response ?: apiData.message.toString()
+                apiData.message.toString()
             }
         }
     }
 
     override suspend fun resendCode(email: String) {
 
-    }
-
-    override suspend fun saveUserSession(session: Session) {
-        prefs.writeSession(session.toRealmObject())
     }
 
     override suspend fun getUserSession(): Session? {
@@ -122,7 +136,7 @@ class AuthRepositoryImpl constructor(
     ): String {
         val localDataObject = prefs.getLocalData() ?: LocalDataObject()
         localDataObject.isLaunchOnboardingFinished = true
-        val updateSurvey =  (localDataObject.onboardingSurvey?.toMutableList()
+        val updateSurvey = (localDataObject.onboardingSurvey?.toMutableList()
             ?: mutableListOf()).also {
             it.addAll(survey.map { survey -> survey.toSurveyObject() })
         }
@@ -136,7 +150,7 @@ class AuthRepositoryImpl constructor(
                 is NetworkResult.Error -> throw result.error
                 is NetworkResult.Success -> {
                     val apiData = json.toObject<ApiWrapper<String?>>(result.data.decodeToString())
-                    apiData.response ?: apiData.message.toString()
+                    apiData.data ?: apiData.message.toString()
                 }
             }
         } else ""
@@ -150,7 +164,7 @@ class AuthRepositoryImpl constructor(
             is NetworkResult.Error -> throw result.error
             is NetworkResult.Success -> {
                 val apiData = json.toObject<ApiWrapper<String?>>(result.data.decodeToString())
-                apiData.response ?: apiData.message.toString()
+                apiData.data ?: apiData.message.toString()
             }
         }
     }
@@ -162,7 +176,7 @@ class AuthRepositoryImpl constructor(
             is NetworkResult.Error -> throw result.error
             is NetworkResult.Success -> {
                 val apiData = json.toObject<ApiWrapper<String?>>(result.data.decodeToString())
-                apiData.response ?: apiData.message.toString()
+                apiData.data ?: apiData.message.toString()
             }
         }
     }
@@ -181,7 +195,7 @@ class AuthRepositoryImpl constructor(
                 }
 
                 val apiData = json.toObject<ApiWrapper<String?>>(result.data.decodeToString())
-                apiData.response ?: apiData.message.toString()
+                apiData.data ?: apiData.message.toString()
             }
         }
     }
@@ -194,7 +208,7 @@ class AuthRepositoryImpl constructor(
             is NetworkResult.Error -> throw result.error
             is NetworkResult.Success -> {
                 val apiData = json.toObject<ApiWrapper<String?>>(result.data.decodeToString())
-                apiData.response ?: apiData.message.toString()
+                apiData.data ?: apiData.message.toString()
             }
         }
     }

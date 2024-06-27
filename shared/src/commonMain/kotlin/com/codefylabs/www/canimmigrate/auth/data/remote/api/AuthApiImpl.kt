@@ -1,7 +1,6 @@
 package com.codefylabs.www.canimmigrate.auth.data.remote.api
 
 import com.codefylabs.www.canimmigrate.BaseConfig
-import com.codefylabs.www.canimmigrate.auth.data.remote.models.ForgetPasswordRequest
 import com.codefylabs.www.canimmigrate.auth.data.remote.models.OnboardingSurveyRequest
 import com.codefylabs.www.canimmigrate.auth.data.remote.models.ResetPasswordRequest
 import com.codefylabs.www.canimmigrate.auth.data.remote.models.SendOtpRequest
@@ -22,20 +21,26 @@ class AuthApiImp(
 
     override suspend fun signIn(email: String, password: String): NetworkResult =
         client.submitWithBody(
-            url = "${BaseConfig.BASE_URL}/login",
-            body = SigninRequest(email = email, password = password)
+            url = "${BaseConfig.BASE_URL}/auth/signin",
+            body = SigninRequest(email = email.lowercase(), password = password)
+        ).toResult()
+
+    override suspend fun signInWithGoogle(token: String): NetworkResult =
+        client.submitWithBody(
+            url = "${BaseConfig.BASE_URL}/auth/signin-with-google",
+            body = mapOf("idToken" to token)
         ).toResult()
 
     override suspend fun signUp(name: String, email: String, password: String): NetworkResult =
         client.submitWithBody(
-            url = "${BaseConfig.BASE_URL}/register",
-            body = SignupRequest(name = name, email = email, password = password),
+            url = "${BaseConfig.BASE_URL}/auth/signup",
+            body = SignupRequest(name = name, email = email.lowercase(), password = password),
         ).toResult()
 
     override suspend fun forgetPassword(email: String): NetworkResult =
         client.submitWithBody(
-            url = "${BaseConfig.BASE_URL}/forgot-password",
-            body = ForgetPasswordRequest(email)
+            url = "${BaseConfig.BASE_URL}/forgot-password/send-otp?email=${email.lowercase()}",
+            body = mapOf<String,String>()
         ).toResult()
 
     override suspend fun resetPassword(
@@ -44,13 +49,15 @@ class AuthApiImp(
         newPassword: String,
     ): NetworkResult =
         client.submitWithBody(
-            url = "${BaseConfig.BASE_URL}/reset-password",
+            url = "${BaseConfig.BASE_URL}/forgot-password/reset",
             body = ResetPasswordRequest(
-                email = email,
-                newPassword = newPassword,
-                verificationCode = verificationCode
+                email = email.lowercase(),
+                password = newPassword,
+                otp = verificationCode
             )
         ).toResult()
+
+
 
     override suspend fun removeAccount(): NetworkResult =
         client.submitFormWithData(

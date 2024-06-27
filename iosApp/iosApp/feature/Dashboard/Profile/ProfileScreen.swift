@@ -10,16 +10,21 @@ import SwiftUI
 
 struct ProfileScreen: View {
     @StateObject var viewModel : ProfileViewModel
-  
+    
     var body: some View {
         VStack {
             TopAppBar(title: "Profile")
             
-            Button("Login", action: {
-                viewModel.coordinator.showLogin()
-            })
+            ScrollView(.vertical, showsIndicators: false){
+                VStack{
+                    loginPlaceholder.padding()
+                    
+                    profileBody.padding()
+                      
+                    settings.padding(.horizontal)
+                }
+            }
             
-            ProfileBody()
             
         }
         .task{
@@ -28,64 +33,89 @@ struct ProfileScreen: View {
     }
 }
 
-struct ProfileBody: View {
-    var body: some View {
-        ScrollView(.vertical, showsIndicators: false, content: {
-            VStack(spacing: 16) {
-                 
-                ProfilePicture()
-                
-                VStack{
-                    Text("Ankit Angra")
-                        .customFont( 20, weight: .semiBold)
+extension ProfileScreen {
+    var profileBody: some View {
+        Group {
+            if let session = viewModel.state.session {
+                VStack(spacing: 16) {
+                    ProfilePicture(pictureUrl: session.profilePicture, placeholder: session.getNameInitials())
                     
-                    Text("ankitangra@codefylabs.com")
-                        .customFont( 16)
-                        .foregroundColor(.secondary)
-                    
-                    Button(action: {
-                        // Edit profile action
-                    }) {
-                        Text("Edit profile")
-                            .customFont( 12, weight: .medium)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 2)
-                            .frame(height: 28)
-                            .background(Color.primary)
-                            .foregroundColor(.white)
-                            .cornerRadius(18)
+                    VStack {
+                        Text(session.name ?? "")
+                            .customFont(20, weight: .semiBold)
+                        
+                        Text(session.email ?? "")
+                            .customFont(16)
+                            .foregroundColor(.secondary)
+                        
+                        Button(action: {
+                            // Edit profile action
+                        }) {
+                            Text("Edit profile")
+                                .customFont(12, weight: .medium)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 2)
+                                .frame(height: 28)
+                                .background(Color.primary)
+                                .foregroundColor(.white)
+                                .cornerRadius(18)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .padding()
                     }
-                    .buttonStyle(PlainButtonStyle())
-                    .padding()
                 }
-                
-               
-                VStack(spacing: 0) {
+            } else {
+                EmptyView()
+            }
+        }
+    }
+    
+    var settings : some View {
+        Group{
+            VStack(spacing : 0){
+                if viewModel.state.session != nil {
                     Divider().background(Color.primary.opacity(0.6))
                     OptionItem(title: "Delete My Account", iconName: "ic-delete")
-                    Divider().background(Color.primary.opacity(0.6))
-                    OptionItem(title: "Feedback", iconName: "ic-feedback")
-                    Divider().background(Color.primary.opacity(0.6))
-                    OptionItem(title: "Tasks", iconName: "ic-tasks")
-                    Divider().background(Color.primary.opacity(0.6))
-                    OptionItem(title: "Support", iconName: "ic-headphone")
-                    Divider().background(Color.primary.opacity(0.6))
-                    OptionItem(title: "Logout", iconName: "ic-logout")
+                }
+                Divider().background(Color.primary.opacity(0.6))
+                OptionItem(title: "Feedback", iconName: "ic-feedback")
+                Divider().background(Color.primary.opacity(0.6))
+                OptionItem(title: "Tasks", iconName: "ic-tasks")
+                Divider().background(Color.primary.opacity(0.6))
+                OptionItem(title: "Support", iconName: "ic-headphone")
+                Divider().background(Color.primary.opacity(0.6))
+                
+                if viewModel.state.session != nil {
+                    OptionItem(title: "Logout", iconName: "ic-logout").onTapGesture {
+                        viewModel.logout()
+                    }
                     Divider().background(Color.primary.opacity(0.6))
                 }
             }
-            .padding(16)
-        })
+        }
+    }
+    
+    var loginPlaceholder : some View {
+        Group{
+            if viewModel.state.session == nil {
+                Button("Login", action: {
+                    viewModel.coordinator.showLogin()
+                })
+            }
+        }
     }
 }
 
 struct ProfilePicture: View {
+    let pictureUrl : String?
+    let placeholder : String
+    
     var body: some View {
         ZStack {
             Circle()
                 .fill(Color.primary)
                 .frame(width: 80, height: 80)
-            Text("AG")
+            Text(placeholder)
                 .font(.system(size: 24))
                 .foregroundColor(.white)
         }
@@ -115,12 +145,7 @@ struct OptionItem: View {
         }
         .padding(.vertical, 16)
         .contentShape(Rectangle())
-        .onTapGesture {
-            
-        }
     }
 }
 
-#Preview {
-    ProfileBody()
-}
+

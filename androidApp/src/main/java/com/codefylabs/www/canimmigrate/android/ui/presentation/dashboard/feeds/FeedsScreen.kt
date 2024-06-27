@@ -1,7 +1,10 @@
 package com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.feeds
 
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,10 +17,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
@@ -28,12 +29,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.codefylabs.www.canimmigrate.android.R
-import com.codefylabs.www.canimmigrate.android.ui.components.BlogItemUi
-import com.codefylabs.www.canimmigrate.android.ui.components.BlogItemWideUi
+import com.codefylabs.www.canimmigrate.android.ui.components.NewsCard
+import com.codefylabs.www.canimmigrate.android.ui.components.NewsCardWide
 import com.codefylabs.www.canimmigrate.android.ui.components.navigation.ActionButton
 import com.codefylabs.www.canimmigrate.android.ui.components.navigation.TopBar
 import com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.feeds.components.FilterRow
-import com.codefylabs.www.canimmigrate.core.data.DummyData
 import com.codefylabs.www.canimmigrate.dashboard.presentation.HomeSharedViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -44,76 +44,87 @@ fun NavHostController.navigateToFeedsScreen(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.feedsScreenRoute(
-    navigateToBlogDetail: (String) -> Unit,
+    navigateToNewsDetail: (String) -> Unit,
 ) {
     composable(route = FEEDS_NAV_ROUTE) {
-        FeedsScreen(navigateToBlogDetail)
+        FeedsScreen(navigateToNewsDetail)
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun FeedsScreen(
-    navigateToBlogDetail: (String) -> Unit,
+    navigateToNewsDetail: (String) -> Unit,
     viewModel: HomeSharedViewModel = koinViewModel(),
 ) {
     val lazyColumnState = rememberLazyListState()
     val screenWidth = LocalConfiguration.current.screenWidthDp
-    var selectedButton by remember { mutableStateOf("All") }
 
-    val buttons = listOf("All", "Policy Updates", "Legal Changes", "Success Stories")
-
+    val state by viewModel.state.collectAsState()
 
     Scaffold(topBar = {
         TopBar(title = "Feeds", actions = {
             ActionButton(imageResId = R.drawable.ic_bell, onClick = {})
         })
-    }) { innerPadding ->
+    }, contentWindowInsets = WindowInsets(bottom = 0)) { innerPadding ->
 
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
+                .animateContentSize()
                 .padding(innerPadding),
             state = lazyColumnState
         ) {
 
-            item {
+            if (state.isLoading){
+                item(key = "LoadingBar"){
 
-                Text(
-                    text = "Trending",
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold,
-                    ),
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 20.dp)
-                )
+                }
+            }
 
-                LazyRow(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(8.dp)) {
-                    items(items = DummyData.getTrendingFeedItems()) {
-                        BlogItemUi(
-                            item = it,
-                            modifier = Modifier.width((screenWidth.minus(40) / 2).dp),
-                            onClick = {
-                                navigateToBlogDetail(it.key.toString())
-                            }
-                        )
+            if (state.trendingFeeds.isNotEmpty()){
+                item("TrendingNews") {
+
+                    Text(
+                        text = "Trending",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.SemiBold,
+                        ),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 20.dp)
+                    )
+
+                    LazyRow(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(8.dp)) {
+                        items(items = state.trendingFeeds, key = { it.id }) {
+                            NewsCard(
+                                item = it,
+                                modifier = Modifier
+                                    .width((screenWidth.minus(40) / 2).dp)
+                                    .animateItemPlacement(),
+                                onClick = {
+                                    navigateToNewsDetail(it.id.toString())
+                                }
+                            )
+                        }
                     }
                 }
-
             }
 
             item {
                 LazyRow(contentPadding = PaddingValues(8.dp)) {
-                    FilterRow(selectedButton, filters = buttons, onClick = {
-                        selectedButton = it
-                    })
+                    FilterRow(
+                        state.selectedFilter,
+                        filters = state.filters,
+                        onClick = viewModel::selectFilter
+                    )
                 }
             }
 
-            items(items = DummyData.getTrendingFeedItems(), key = { it.key }) {
-                BlogItemWideUi(item = it) {
-                    navigateToBlogDetail(it.key.toString())
+            items(items = state.feeds, key = { it.id }) {
+                NewsCardWide(item = it, modifier = Modifier.animateItemPlacement()) {
+                    navigateToNewsDetail(it.id.toString())
                 }
             }
 

@@ -4,18 +4,17 @@ import com.codefylabs.www.canimmigrate.auth.domain.entities.LocalData
 import com.codefylabs.www.canimmigrate.auth.domain.entities.Session
 import com.codefylabs.www.canimmigrate.auth.domain.entities.Survey
 import com.codefylabs.www.canimmigrate.auth.domain.entities.UserInfo
-import com.codefylabs.www.canimmigrate.core.util.Either
 import kotlinx.coroutines.flow.Flow
 
 
 interface AuthRepository {
-    suspend fun login(email: String, password: String): UserInfo
-    suspend fun signup(username: String, email: String, password: String): String
+    suspend fun signIn(email: String, password: String): UserInfo
+    suspend fun signInWithGoogle(idToken : String): UserInfo
+    suspend fun signUp(name: String, email: String, password: String): String
     suspend fun logout()
     suspend fun forgetPassword(email: String): String
     suspend fun resetPassword(email: String, confirmationCode: String, newPassword: String): String
     suspend fun resendCode(email: String)
-    suspend fun saveUserSession(session: Session)
     suspend fun getUserSession(): Session?
     suspend fun getSessionFlow(): Flow<Session?>
     suspend fun deleteAccount(): Unit

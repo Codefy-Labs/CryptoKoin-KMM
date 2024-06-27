@@ -31,8 +31,11 @@ struct HomeScreen: View {
                     .listRowInsets(EdgeInsets())
                     .listRowSpacing(0)
                       
-                    ForEach(viewModel.state.feeds, id:  \.key , content: { item in
+                    ForEach(viewModel.state.feeds, id:  \.id , content: { item in
                         FeedCardView(imageUrl: item.imageRes, title: item.title, timeAgo: item.daysToGo, views: item.views, comments: item.shares)
+                            .onTapGesture {
+                                viewModel.coordinator.showNewsDetail(newsId: item.id)
+                            }
                             .padding(.bottom,16)
                             .padding(.horizontal,8)
                             .listRowSeparator(.hidden) .listRowInsets(EdgeInsets())
@@ -59,8 +62,11 @@ extension HomeScreen {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     Spacer().frame(width: 8)
-                    ForEach(viewModel.state.trendingFeeds, id: \.key) { item in
+                    ForEach(viewModel.state.trendingFeeds, id: \.id) { item in
                         TrendingCardView(imageUrl: item.imageRes, title: item.title, timeAgo: item.daysToGo, views: item.views, comments: item.views)
+                            .onTapGesture {
+                                viewModel.coordinator.showNewsDetail(newsId: item.id)
+                            }
                     }
                     Spacer().frame(width: 8)
                 }

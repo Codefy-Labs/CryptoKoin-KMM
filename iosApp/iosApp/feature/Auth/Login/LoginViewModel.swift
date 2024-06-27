@@ -43,61 +43,24 @@ class LoginViewModel : ObservableObject {
         })
     }
     
-    private func toggleGoogleSigInProcessing(_ value : Bool){
-        DispatchQueue.main.sync {
-            if(self.googleSigInProcessing != value ){
-                withAnimation{
-                    self.googleSigInProcessing.toggle()
-                }
-            }
-        }
+    func onChangePassword(_ pass : String){
+        vmShared.onChangePassword(password: pass)
     }
-  
+    
+    func onChangeEmail(_ mail : String){
+        vmShared.onChangeEmailId(email: mail)
+    }
+    
+    func signIn(){
+        vmShared.login()
+    }
+      
     func signInWithGoogle() async   {
-        self.toggleGoogleSigInProcessing(true)
-        guard let clientID = FirebaseApp.app()?.options.clientID else {
-            self.googleSigInProcessing = false
-            fatalError("No client ID found in Firebase configuration")
-        }
-         
-        let config = GIDConfiguration(clientID: clientID)
-        GIDSignIn.sharedInstance.configuration = config
-        
-        guard let windowScene =  await UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window =  await windowScene.windows.first,
-              let rootViewController =  await window.rootViewController else {
-            print("There is no root view controller!")
-            self.toggleGoogleSigInProcessing(false)
-            return
-        }
-        
-        do {
-            let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
-             
-            let user = userAuthentication.user
-            guard let idToken = user.idToken else {
-                self.toggleGoogleSigInProcessing(false)
-                fatalError( "ID token missing")
-            }
-            let accessToken = user.accessToken
-            
-            let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,
-                                                           accessToken: accessToken.tokenString)
-            
-            let result = try await Auth.auth().signIn(with: credential)
-            let firebaseUser = result.user
-            
-            print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown") and access token \( String(describing: user.accessToken.tokenString))")
-             
-            let googleUser = GoogleUser(idToken: user.accessToken.tokenString, displayName: user.profile?.name ?? "", profilePicUrl: user.profile?.imageURL(withDimension: 320)?.path())
-            self.toggleGoogleSigInProcessing(false)
-            vmShared.loginWithGoogle(googleUser: googleUser)
-        }
-        catch {
-            self.toggleGoogleSigInProcessing(false)
-            print(error.localizedDescription)
-            ToastManager.shared.error(message: "\(error.localizedDescription)")
-        }
+        await GoogleSignInHelper.invokeGoogleSignIn(onSuccess: { idToken in
+            vmShared.signInWithGoogle(idToken: idToken)
+        }, onError: { error in
+            ToastManager.shared.error(message: "\(error)")
+        })
     }
     
     func observeEvents(){

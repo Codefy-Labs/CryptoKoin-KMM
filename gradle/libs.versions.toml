@@ -1,6 +1,8 @@
 [versions]
 agp = "8.2.0"
 coilCompose = "2.5.0"
+firebaseBom = "32.0.0"
+firebaseUiAuth = "7.2.0"
 kotlin = "1.9.20"
 compose = "1.5.4"
 compose-compiler = "1.5.4"
@@ -10,6 +12,7 @@ androidx-lifecycle = "2.6.2"
 ktor = "2.3.7"
 coroutines = "1.7.3"
 mixpanelAndroid = "7.0.0"
+playServicesAuth = "20.6.0"
 serializationVersion = "1.6.0"
 realm = "1.11.0"
 lifecycleViewmodelKtx = "2.7.0"
@@ -18,11 +21,11 @@ koin = "3.5.0"
 compose-nav = "2.7.6"
 datetime = "0.5.0"
 libphonenumber = "8.12.39"
-firebase-bom = "32.8.0"
 
 
 [libraries]
 compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -58,10 +61,13 @@ koin-android-compose = { module = "io.insert-koin:koin-androidx-compose", versio
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
-android-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom"}
-android-firebase-analytics = { module = "com.google.firebase:firebase-analytics"}
+android-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom"}
+android-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+android-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+android-firebase-ui-auth = { module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuth" }
+android-play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 
-mixpanel-android = { module = "com.mixpanel.android:mixpanel-android", version.ref = "mixpanelAndroid" }
+android-mixpanel = { module = "com.mixpanel.android:mixpanel-android", version.ref = "mixpanelAndroid" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp"}

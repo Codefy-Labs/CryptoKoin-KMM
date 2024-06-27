@@ -1,5 +1,7 @@
 package com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.csr
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +16,7 @@ import androidx.navigation.compose.composable
 import com.codefylabs.www.canimmigrate.android.R
 import com.codefylabs.www.canimmigrate.android.ui.components.navigation.ActionButton
 import com.codefylabs.www.canimmigrate.android.ui.components.navigation.TopBar
+import com.codefylabs.www.canimmigrate.android.ui.presentation.discussions.DiscussionsScreen
 
 
 const val CSR_NAV_ROUTE = "CSR_NAV_ROUTE"
@@ -35,7 +38,7 @@ private fun CsrScreen() {
         TopBar(title = "", actions = {
             ActionButton(imageResId = R.drawable.ic_bell, onClick = {})
         })
-    }) { innerPadding ->
+    }, contentWindowInsets = WindowInsets(bottom = 0)) { innerPadding ->
         LazyColumn(modifier = Modifier.fillMaxSize().padding(innerPadding), state = lazyColumnState) {
 
         }

@@ -26,6 +26,10 @@ interface AuthAPI {
         newPassword: String
     ): NetworkResult
 
+    suspend fun signInWithGoogle(
+        token : String
+    ) : NetworkResult
+
     suspend fun removeAccount(): NetworkResult
     suspend fun sendOtpOnUserPhoneNumber(phoneNumber: String): NetworkResult
     suspend fun resendOtpOnUserPhoneNumber(phoneNumber: String): NetworkResult

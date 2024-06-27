@@ -36,6 +36,30 @@ struct TopAppBar: View {
     }
 }
 
+struct TopAppBarWithBackButton: View {
+    var title: String
+    let onBackPressed: () -> Void
+    let actions: () -> AnyView  
+    
+    var body: some View {
+        HStack {
+            BackButton(onClick: onBackPressed)
+            
+            Text(title)
+                .font(.title)
+                .fontWeight(.bold)
+                .frame(maxWidth: .infinity, alignment: .center)
+            
+            actions()
+        }
+        .foregroundColor(.white)
+        .padding()
+        .background(Color.red)
+    }
+}
+
+ 
+
 
 #Preview {
     VStack{

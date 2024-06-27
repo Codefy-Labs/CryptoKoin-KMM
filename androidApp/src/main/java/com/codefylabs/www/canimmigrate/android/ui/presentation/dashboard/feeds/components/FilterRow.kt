@@ -2,6 +2,7 @@ package com.codefylabs.www.canimmigrate.android.ui.presentation.dashboard.feeds.
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
@@ -9,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,13 +28,14 @@ fun LazyListScope.FilterRow(selected: String, filters: List<String>, onClick: (S
                 color = if (isSelected) Color.White else Color.Black,
             ),
             modifier = Modifier
-                .padding(horizontal = 8.dp, vertical = 4.dp)
+                .padding(horizontal = 6.dp, vertical = 4.dp)
                 .background(
-                    color = if (isSelected) Color.Black else Color.LightGray.copy(0.7f),
-                    shape = RoundedCornerShape(50)
+                    color = if (isSelected) Color.Black else Color.LightGray.copy(0.5f),
+                    shape = MaterialTheme.shapes.large
                 )
+                .clickable(interactionSource = MutableInteractionSource(), indication = null, onClick = { onClick(button)})
                 .padding(horizontal = 14.dp, vertical = 5.dp)
-                .clickable { onClick(button) }
+
         )
     }
 

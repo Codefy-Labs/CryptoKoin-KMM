@@ -100,7 +100,7 @@ suspend fun Result<HttpResponse>.toResult(): NetworkResult {
 
                 400 -> {
                     val errorBody: ApiWrapper<String?> = json.decodeFromString(bodyAsText())
-                    val errorMessage = errorBody.response ?: errorBody.message
+                    val errorMessage = errorBody.data ?: errorBody.message
                     NetworkResult.Error(
                         NetworkException(
                             errorMessage ?: "Something went wrong! Please try again later."
@@ -110,7 +110,7 @@ suspend fun Result<HttpResponse>.toResult(): NetworkResult {
 
                 401 -> {
                     val errorBody: ApiWrapper<String?> = json.decodeFromString(bodyAsText())
-                    val errorMessage = errorBody.response ?: errorBody.message
+                    val errorMessage = errorBody.data ?: errorBody.message
                     NetworkResult.Error(
                         NetworkException(
                             errorMessage ?: "Authorization Failed! Try Logging In again."
@@ -120,7 +120,7 @@ suspend fun Result<HttpResponse>.toResult(): NetworkResult {
 
                 in listOf(500, 503) -> {
                     val errorBody: ApiWrapper<String?> = json.decodeFromString(bodyAsText())
-                    val errorMessage = errorBody.response ?: errorBody.message
+                    val errorMessage = errorBody.data ?: errorBody.message
                     NetworkResult.Error(
                         NetworkException(
                             errorMessage ?: "Server Disruption! We are on fixing it."
@@ -130,7 +130,7 @@ suspend fun Result<HttpResponse>.toResult(): NetworkResult {
 
                 504 -> {
                     val errorBody: ApiWrapper<String?> = json.decodeFromString(bodyAsText())
-                    val errorMessage = errorBody.response ?: errorBody.message
+                    val errorMessage = errorBody.data ?: errorBody.message
                     NetworkResult.Error(
                         NetworkException(
                             errorMessage ?: "Too much load at this time, try again later!"
@@ -140,7 +140,7 @@ suspend fun Result<HttpResponse>.toResult(): NetworkResult {
 
                 else -> {
                     val errorBody: ApiWrapper<String?> = json.decodeFromString(bodyAsText())
-                    val errorMessage = errorBody.response ?: errorBody.message
+                    val errorMessage = errorBody.data ?: errorBody.message
                     NetworkResult.Error(
                         NetworkException(
                             errorMessage ?: "Something went wrong! Please try again later."

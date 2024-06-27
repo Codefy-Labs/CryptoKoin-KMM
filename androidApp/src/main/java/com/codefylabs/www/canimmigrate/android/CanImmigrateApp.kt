@@ -3,13 +3,16 @@ package com.codefylabs.www.canimmigrate.android
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.codefylabs.www.canimmigrate.android.ui.onboarding.components.OnboardingDataProvider
+import com.codefylabs.www.canimmigrate.android.ui.presentation.onboarding.components.OnboardingDataProvider
 import com.codefylabs.www.canimmigrate.auth.presentation.LoginSharedVM
+import com.codefylabs.www.canimmigrate.auth.presentation.forgetpassword.ForgetPasswordSharedVM
 import com.codefylabs.www.canimmigrate.auth.presentation.signup.SignUpSharedVM
 import com.codefylabs.www.canimmigrate.core.util.initializeLogger
 import com.codefylabs.www.canimmigrate.dashboard.presentation.CrsSharedVM
 import com.codefylabs.www.canimmigrate.dashboard.presentation.DashboardSharedVM
+import com.codefylabs.www.canimmigrate.dashboard.presentation.DiscussionSharedVM
 import com.codefylabs.www.canimmigrate.dashboard.presentation.HomeSharedViewModel
+import com.codefylabs.www.canimmigrate.dashboard.presentation.NewsDetailSharedVM
 import com.codefylabs.www.canimmigrate.dashboard.presentation.ProcessSharedVM
 import com.codefylabs.www.canimmigrate.dashboard.presentation.ProfileSharedVM
 import com.codefylabs.www.canimmigrate.dashboard.presentation.ProgramsSharedVM
@@ -31,15 +34,18 @@ class CanImmigrateApp : Application() {
             single<Context> { this@CanImmigrateApp }
 
             viewModel { HomeSharedViewModel(get()) }
-            viewModel { ProfileSharedVM() }
+            viewModel { ProfileSharedVM(get()) }
             viewModel { ProcessSharedVM() }
             viewModel { ProgramsSharedVM() }
             viewModel { CrsSharedVM() }
             viewModel { SettingSharedViewModel(get()) }
             viewModel { DashboardSharedVM(get()) }
             viewModel { OnboardingSharedVM(get(), get()) }
-            viewModel { LoginSharedVM(get(), get() ) }
-            viewModel { SignUpSharedVM(get()) }
+            viewModel { LoginSharedVM(get(), get(), get()) }
+            viewModel { SignUpSharedVM(get(), get()) }
+            viewModel { ForgetPasswordSharedVM(get(), get()) }
+            viewModel { DiscussionSharedVM() }
+            viewModel { (newsId: String) -> NewsDetailSharedVM(newsId) }
 
             factory {
                 OnboardingDataProvider {

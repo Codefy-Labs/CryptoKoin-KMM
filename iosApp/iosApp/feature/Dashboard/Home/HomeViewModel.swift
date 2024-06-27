@@ -12,7 +12,7 @@ import SwiftUI
 
 class HomeViewModel : ObservableObject {
     
-    private let coordinator : HomeCoordinator
+    let coordinator : HomeCoordinator
     private let viewModel : HomeSharedViewModel
     private var disposableHandle : DisposableHandle?
     

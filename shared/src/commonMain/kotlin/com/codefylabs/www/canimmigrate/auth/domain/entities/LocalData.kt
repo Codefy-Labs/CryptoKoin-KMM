@@ -30,7 +30,6 @@ fun Survey.toSurveyObject() : SurveyDataObject = SurveyDataObject().also {
 fun LocalDataObject?.toLocalData(): LocalData = this?.let {
     LocalData(
         isLaunchOnboardingFinished = it.isLaunchOnboardingFinished,
-        isDarkModelOn = it.isDarkModelOn,
         onboardingSurvey = it.onboardingSurvey?.map { survey ->
             Survey(
                 key = OnboardingStep.valueOf(survey.key),
@@ -43,7 +42,6 @@ fun LocalDataObject?.toLocalData(): LocalData = this?.let {
 
 fun LocalData.toRealmObject(): RealmObject {
     val data = LocalDataObject()
-    data.isDarkModelOn = isDarkModelOn
     data.isLaunchOnboardingFinished = isLaunchOnboardingFinished
     data.onboardingSurvey = onboardingSurvey?.map { survey ->
         SurveyDataObject().also {

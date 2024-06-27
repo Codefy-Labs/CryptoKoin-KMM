@@ -1,7 +1,9 @@
 package com.codefylabs.www.canimmigrate.android.ui.components
 
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -33,7 +36,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 @Composable
   fun GoogleSignInButton(
-    enabled: Boolean = true,
+    text : String,
+    isLoading: Boolean = true,
     onSuccess: (account: GoogleSignInAccount) -> Unit,
     onError: (String) -> Unit,
 ) {
@@ -45,7 +49,8 @@ import com.google.firebase.auth.FirebaseAuth
         rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             try {
-                val account = task.getResult(ApiException::class.java)!!
+                val account = task.getResult(ApiException::class.java)
+                Log.e("GoogleSignIn", "IdToken -> ${account.idToken}")
                 onSuccess.invoke(account)
             } catch (e: ApiException) {
                 e.printStackTrace()
@@ -74,7 +79,7 @@ import com.google.firebase.auth.FirebaseAuth
             1.dp,
             color = MaterialTheme.colorScheme.onBackground.copy(0.4f)
         ),
-        enabled = enabled
+        enabled = !isLoading
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_google), // Replace with a suitable Google logo resource
@@ -82,13 +87,18 @@ import com.google.firebase.auth.FirebaseAuth
             modifier = Modifier.size(24.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            "Login with Google", style = MaterialTheme.typography.bodyMedium.copy(
+        Text(  text, style = MaterialTheme.typography.bodyMedium.copy(
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 16.sp,
                 color = MaterialTheme.colorScheme.onBackground.copy(0.7f)
             )
         )
+        AnimatedVisibility(
+            visible = isLoading,
+            modifier = Modifier.padding(horizontal = 16.dp)
+        ) {
+            CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp )
+        }
     }
 
 }

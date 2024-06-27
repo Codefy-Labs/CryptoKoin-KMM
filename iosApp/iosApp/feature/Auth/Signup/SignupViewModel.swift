@@ -8,6 +8,7 @@
 
 import Foundation
 import shared
+import SwiftUI
 
 class SignupViewModel : ObservableObject {
     
@@ -25,11 +26,13 @@ class SignupViewModel : ObservableObject {
     var state: SignupViewState = SignupViewState.companion.emptyState()
     private var disposableHandle : DisposableHandle?
      
-    func observe(){
+    func observeState(){
         self.disposableHandle = vmShared.state.subscribe(onCollect: { newState in
             DispatchQueue.main.async{
                 if let state = newState {
-                    self.state = state
+                    withAnimation{
+                        self.state = state
+                    }
                 }
             }
         })
@@ -39,14 +42,47 @@ class SignupViewModel : ObservableObject {
         vmShared.event.subscribe(onCollect: { e in
             if let event = e {
                 switch event {
-                case let sucess as SignupViewEvent.Success :
+                case let verificationEmailSent as SignupViewEvent.VerificationEmailSent :
+                    ToastManager.shared.success(message: verificationEmailSent.message)
                     self.coordinator.navigateUp()
+                    
+                case let googleSignUpSuccessful as SignupViewEvent.GoogleSignUpSuccessful :
+                    ToastManager.shared.success(message: googleSignUpSuccessful.message)
+                    self.coordinator.navigateUpToRoot()
                     
                 case let error as SignupViewEvent.Error :
                     ToastManager.shared.error(message: error.error)
                 default: break
                 }
             }
+        })
+    }
+    
+    func onChangeName(_ value : String){
+        vmShared.onNameChanged(name: value)
+    }
+    
+    func onChangeEmail(_ value : String){
+        vmShared.onEmailChanged(email: value)
+    }
+    
+    func onChangePassword(_ value : String){
+        vmShared.onPasswordChanged(password: value)
+    }
+    
+    func onChangeConfirmPassword(_ value : String){
+        vmShared.onConfirmPasswordChange(password: value)
+    }
+    
+    func signUp(){
+        vmShared.signUp()
+    }
+    
+    func signUpWithGoogle() async   {
+        await GoogleSignInHelper.invokeGoogleSignIn(onSuccess: { idToken in
+            vmShared.signUpWithGoogle(idToken: idToken)
+        }, onError: { error in
+            ToastManager.shared.error(message: "\(error)")
         })
     }
     

@@ -21,7 +21,7 @@ class HomeSharedViewModel(
     private fun fetchData() {
         coroutine.launch {
             updateState(state.value.copy(isLoading = true))
-            delay(3000)
+//            delay(3000)
             updateState(
                 state.value.copy(
                     isLoading = false,

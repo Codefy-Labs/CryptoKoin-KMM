@@ -7,12 +7,12 @@
 //
 
 import Foundation
- 
+
 
 
 protocol CoordinatorFactory {
     var navigator: Navigator { get }
-     
+    
     
     func makeDashboardCoordinator() -> DashboardCoordinator
     func makeHomeCoordinator() -> HomeCoordinator
@@ -23,12 +23,14 @@ protocol CoordinatorFactory {
     func makeOnboardingCoordinator() -> OnboardingCoordinator
     func makeSignupCoordinator() -> SignupCoordinator
     func makeLoginCoordinator() -> LoginCoordinator
+    func makeForgetPasswordCoordinator() -> ForgetPasswordCoordinator
+    func makeNewsDetailCoordinator() -> NewsDetailCoordinator
 }
- 
+
 
 class CoordinatorFactoryImpl: CoordinatorFactory {
- 
-  
+    
+    
     let navigator: Navigator
     
     init(navigator: Navigator) {
@@ -38,7 +40,7 @@ class CoordinatorFactoryImpl: CoordinatorFactory {
     func makeDashboardCoordinator() ->  DashboardCoordinator {
         DashboardCoordinatorImpl(navigator: navigator)
     }
-      
+    
     func makeHomeCoordinator() -> HomeCoordinator {
         HomeCoordinatorImpl  (navigator: navigator)
     }
@@ -58,17 +60,24 @@ class CoordinatorFactoryImpl: CoordinatorFactory {
     func makeProfileCoordinator() ->   ProfileCoordinator {
         ProfileCoordinatorImpl(navigator: navigator)
     }
-     
+    
     func makeOnboardingCoordinator() -> OnboardingCoordinator {
         OnboardingCoordinatorImpl(navigator: navigator)
     }
     
-    func makeSignupCoordinator() -> any SignupCoordinator {
+    func makeSignupCoordinator() ->   SignupCoordinator {
         SignupCoordinatorImpl(navigator: navigator)
     }
     
-    func makeLoginCoordinator() -> any LoginCoordinator {
+    func makeLoginCoordinator() ->   LoginCoordinator {
         LoginCoordinatorImpl(navigator: navigator)
     }
     
+    func makeForgetPasswordCoordinator() ->   ForgetPasswordCoordinator {
+        ForgetPasswordCoordinatorImpl(navigator: navigator)
+    }
+    
+    func makeNewsDetailCoordinator() -> NewsDetailCoordinator {
+        NewsDetailCoordinatorImpl(navigator: navigator)
+    }
 }

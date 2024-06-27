@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.map
 interface SessionUseCase {
 
     suspend fun getSession(): Session?
+    suspend fun getSessionFlow(): CommonFlow<Session?>
 
     suspend fun isLoggedIn(): Boolean
     suspend fun isLoggedInFlow(): CommonFlow<Boolean>
@@ -18,16 +19,17 @@ interface SessionUseCase {
 
     suspend fun getUserPhoneNumber(): String?
 
-    suspend fun updateUserPhoneNumberLocally(number: String)
 
     suspend fun logout()
 
-    suspend fun saveSession(session: Session)
 }
 
 
 class SessionUseCaseImpl(val repo: AuthRepository) : SessionUseCase {
     override suspend fun getSession(): Session? = repo.getUserSession()
+    override suspend fun getSessionFlow(): CommonFlow<Session?> =
+        repo.getSessionFlow().toCommonFlow()
+
     override suspend fun isLoggedIn(): Boolean {
         return repo.getUserSession()?.accessToken != null
     }
@@ -36,16 +38,9 @@ class SessionUseCaseImpl(val repo: AuthRepository) : SessionUseCase {
 
     override suspend fun getUserEmail(): String? = repo.getUserSession()?.email
     override suspend fun getUserPhoneNumber(): String? = repo.getUserSession()?.phoneNumber
-    override suspend fun updateUserPhoneNumberLocally(number: String) {
-        repo.getUserSession()?.copy(phoneNumber = number)?.let { repo.saveUserSession(it) }
-    }
 
     override suspend fun logout() {
         repo.logout()
-    }
-
-    override suspend fun saveSession(session: Session) {
-        repo.saveUserSession(session)
     }
 
 }

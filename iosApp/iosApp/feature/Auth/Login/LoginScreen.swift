@@ -11,8 +11,6 @@ import SwiftUI
 
 struct LoginScreen: View {
     @StateObject var viewModel : LoginViewModel
-    @State private var username: String = ""
-    @State private var password: String = ""
 
     var body: some View {
         VStack(spacing: 20) {
@@ -21,6 +19,8 @@ struct LoginScreen: View {
                 Spacer()
             }
             
+            Spacer()
+            
             Image("logo-transparent")
                 .resizable()
                 .scaledToFit()
@@ -28,16 +28,25 @@ struct LoginScreen: View {
             Spacer()
 
             // Username TextField
-            TextField("User name", text: $username)
-                .customFont(16, weight: .medium)
+            TextField("Email Id", text: Binding(get: {
+                viewModel.state.emailId
+            }, set: { value in
+                viewModel.onChangeEmail(value)
+            })).customFont(16, weight: .medium)
+                .disabled(viewModel.state.isLoading)
                 .padding()
                 .background(Color(UIColor.systemGray6))
                 .cornerRadius(8)
                 .padding(.horizontal)
 
             // Password SecureField
-            SecureField("Password", text: $password)
+            SecureField("Password", text: Binding(get: {
+                viewModel.state.password
+            }, set: { value in
+                viewModel.onChangePassword(value)
+            }))
                 .customFont(16, weight: .medium)
+                .disabled(viewModel.state.isLoading)
                 .padding()
                 .background(Color(UIColor.systemGray6))
                 .cornerRadius(8)
@@ -46,9 +55,7 @@ struct LoginScreen: View {
             // Remember Me and Forgot Password
             HStack {
                 Spacer()
-                Button(action: {
-                    // Forgot password action
-                }) {
+                Button(action: viewModel.coordinator.showForgetPassword) {
                     Text("Forgot Password")
                         .foregroundColor(.blue)
                         .customFont(14, weight: .medium)
@@ -57,18 +64,25 @@ struct LoginScreen: View {
             .padding(.horizontal)
 
             // Continue Button
-            Button(action: {
-                // Continue button action
-            }) {
-                Text("Continue")
-                    .customFont(16, weight: .semiBold)
-                    .foregroundColor(.white)
+            Button(action: viewModel.signIn) {
+                HStack{
+                    Text("Continue")
+                        .customFont(16, weight: .semiBold)
+                        
+                    if viewModel.state.isLoading {
+                        Spacer().frame(width: 12)
+                        ProgressView()
+                            .tint(.white)
+                            .frame(width: 20, height: 20)
+                    }
+                } .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.red)
                     .cornerRadius(8)
                    
             }
+            .disabled(viewModel.state.isLoading)
             .padding(.horizontal)
 
             // Login with Google Button
@@ -82,7 +96,7 @@ struct LoginScreen: View {
                     Spacer().frame(width: 12)
                     Text("Login with Google")
                         .customFont(16, weight: .medium)
-                    if viewModel.googleSigInProcessing {
+                    if viewModel.state.isGoogleSigning {
                         Spacer().frame(width: 12)
                         ProgressView()
                             .frame(width: 24, height: 24)
@@ -98,7 +112,7 @@ struct LoginScreen: View {
                         .stroke(Color.gray, lineWidth: 1)
                 )
             }
-            .disabled(viewModel.googleSigInProcessing)
+            .disabled(viewModel.state.isGoogleSigning)
             .padding(.horizontal)
 
             // Sign Up Link
@@ -112,9 +126,14 @@ struct LoginScreen: View {
                 }
             }.customFont(16, weight: .medium)
             .padding(.top, 20)
+            
+            Spacer()
         }
         .padding()
         .navigationBarBackButtonHidden()
+        .task {
+            viewModel.observe()
+        }
     }
 }
 

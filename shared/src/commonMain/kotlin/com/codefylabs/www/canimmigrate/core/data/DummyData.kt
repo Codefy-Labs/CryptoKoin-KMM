@@ -10,7 +10,8 @@ object DummyData {
             title = "Immigration, Refugees and Citizenship Canada (IRCC) has issued its first round of Express Entry invitations",
             daysToGo = "2 days to go",
             views = "12",
-            shares = "23"
+            shares = "23",
+            url = "https://www.cicnews.com/2024/06/breaking-quebec-imposes-cap-on-family-sponsorship-applications-0645040.html"
         ),
         Feed(
             imageRes = "https://www.immilawglobal.com/uploads/blogs/immigration-policy-of-canada-33373.jpg", // Placeholder image URL

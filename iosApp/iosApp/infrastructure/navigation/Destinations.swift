@@ -20,6 +20,7 @@ enum Screen : Identifiable, Hashable {
     case signup
     case login
     case forgetPassword
+    case newsDetail(newsId: String)
  
     var id: String {
         switch self {
@@ -45,17 +46,24 @@ enum Screen : Identifiable, Hashable {
             return "login"
         case .forgetPassword :
             return "forgetPassword"
+        case .newsDetail(let newsId):
+            return newsId
+             
         }
     }
 }
 
 enum Sheet :  Identifiable, Hashable {
     case blankSheet;
+    case discussions(id : String);
     
     var id : String {
         switch self{
         case .blankSheet:
             return "blankSheet"
+        case .discussions(let id) :
+            return id
+             
         }
     }
     

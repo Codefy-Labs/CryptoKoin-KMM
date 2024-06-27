@@ -8,6 +8,7 @@
 
 import Foundation
 import shared
+import SwiftUI
 
 class ProfileViewModel : ObservableObject {
     
@@ -31,10 +32,17 @@ class ProfileViewModel : ObservableObject {
         self.disposableHandle = vmShared.state.subscribe(onCollect: { newState in
             DispatchQueue.main.async{
                 if let state = newState {
-                    self.state = state
+                    withAnimation{
+                        self.state = state
+                    }
                 }
             }
         })
+    }
+    
+    
+    func logout(){
+        vmShared.logout()
     }
     
     func observeEvents(){

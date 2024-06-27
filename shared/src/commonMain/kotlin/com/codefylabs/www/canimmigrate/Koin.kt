@@ -43,7 +43,7 @@ private val coreModule = module {
     }
 
     single {
-        KmmAppKtorClient(get(), get())
+        KmmAppKtorClient(get(), get(), get())
     }
 
 

@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ApiWrapper<T>(
     val message: String? = null,
-    val response: T? = null,
-    val status: String? = null
+    val data: T? = null,
+    val status: Boolean? = null
 )

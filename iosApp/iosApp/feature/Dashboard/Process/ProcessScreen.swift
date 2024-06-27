@@ -43,30 +43,7 @@ struct ProcessScreen: View {
     }
 }
 
-struct TabButton: View {
-    @Binding var selectedTab: Int
-    let index: Int
-    let title: String
-    
-    var body: some View {
-        VStack{
-            Button(action: {
-                selectedTab = index
-            }) {
-                Text(title)
-                    .customFont(  16, weight: selectedTab == index ? .bold : .semiBold)
-                    .foregroundColor(selectedTab == index ? Color.primary : Color.primary.opacity(0.5))
-                
-            }
-            
-            Rectangle()
-                .fill(selectedTab == index ? Color.red : Color.clear)
-                .frame(height: 2)
-                .padding(.horizontal, 10)
-        }
-        .padding(10)
-    }
-}
+
 
 
 
