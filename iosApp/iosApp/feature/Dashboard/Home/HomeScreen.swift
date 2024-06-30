@@ -22,7 +22,7 @@ struct HomeScreen: View {
                     trendingSection.listRowSeparator(.hidden)
                         .padding(.bottom,16)
                         .listRowInsets(EdgeInsets())
-                      
+                    
                     FiltersRow(selectedSegment: Binding(get: {
                         viewModel.state.selectedFilter
                     }, set: { item in viewModel.selectFilter(item)}), segments: viewModel.state.filters)
@@ -30,21 +30,16 @@ struct HomeScreen: View {
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets())
                     .listRowSpacing(0)
-                      
-                    ForEach(viewModel.state.feeds, id:  \.id , content: { item in
-                        FeedCardView(imageUrl: item.imageRes, title: item.title, timeAgo: item.daysToGo, views: item.views, comments: item.shares)
-                            .onTapGesture {
-                                viewModel.coordinator.showNewsDetail(newsId: item.id)
-                            }
-                            .padding(.bottom,16)
-                            .padding(.horizontal,8)
-                            .listRowSeparator(.hidden) .listRowInsets(EdgeInsets())
-                        
-                    })
+                    
+                   newsListView
+                  
                 }.listStyle(.plain)
                     .listRowBackground(Color.clear)
+                    .refreshable {
+                        viewModel.refresh()
+                    }
             }
-      
+            
         }
         
         .task{
@@ -70,6 +65,36 @@ extension HomeScreen {
                     }
                     Spacer().frame(width: 8)
                 }
+            }
+        }
+    }
+    
+    
+    private var newsListView : some View {
+        Group{
+            
+            if let newsArray = viewModel.state.news.data as? [News] {
+                ForEach(newsArray, id:  \.id, content: { item in
+                    FeedCardView(imageUrl: item.thumbnailUrl, title: item.title, timeAgo: item.publishedAt, views: String(item.views), comments: String(item.shares))
+                        .onTapGesture {
+                            viewModel.coordinator.showNewsDetail(newsId: String(item.id))
+                        }
+                        .padding(.bottom,16)
+                        .padding(.horizontal,8)
+                        .listRowSeparator(.hidden) .listRowInsets(EdgeInsets())
+                        .onAppear(perform: {
+                            if newsArray.last == item {
+                                viewModel.loadMoreNews()
+                            }
+                        })
+                    
+                })
+            }
+            
+            
+            if viewModel.state.news.isRefreshing {
+                LoadingView(width: 100, height: 100, background: .clear)
+                    .listRowSeparator(.hidden) .listRowInsets(EdgeInsets())
             }
         }
     }

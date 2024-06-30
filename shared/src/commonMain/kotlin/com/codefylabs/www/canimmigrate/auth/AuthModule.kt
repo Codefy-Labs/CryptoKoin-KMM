@@ -42,7 +42,7 @@ val authModule = module {
                         LocalDataObject::class,
                         SurveyDataObject::class
                     )
-                ).build()
+                ).deleteRealmIfMigrationNeeded().build()
             )
         )
     }

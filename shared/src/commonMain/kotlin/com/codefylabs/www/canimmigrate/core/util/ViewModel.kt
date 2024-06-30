@@ -39,15 +39,24 @@ abstract class StateViewModel<E : Event, S : State>(initialState: S) : ViewModel
     private val _state = MutableStateFlow(initialState)
     val state = _state.asStateFlow().toCommonStateFlow()
 
+    val stateValue: S
+        get() = state.value
+
     protected suspend fun sendEvent(event: E) = _event.send(event)
 
     @OptIn(DelicateCoroutinesApi::class)
     protected fun sendEventSync(event: E) = GlobalScope.launch { _event.send(event) }
 
     protected fun updateState(newState: S) {
-       CoroutineScope(Dispatchers.Main.immediate).launch {
-           _state.value = newState
-       }
+        CoroutineScope(Dispatchers.Main.immediate).launch {
+            _state.value = newState
+        }
+    }
+
+    protected fun updateState(update: (state: S) -> S) {
+        CoroutineScope(Dispatchers.Main.immediate).launch {
+            _state.value = update(state.value)
+        }
     }
 
     override fun onCleared() {

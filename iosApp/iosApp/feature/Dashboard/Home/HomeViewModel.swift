@@ -9,6 +9,7 @@
 import shared
 import Foundation
 import SwiftUI
+import Combine
 
 class HomeViewModel : ObservableObject {
     
@@ -18,13 +19,13 @@ class HomeViewModel : ObservableObject {
     
     @Published
     var state: HomeViewState = HomeViewState.companion.initial()
-     
+    
     init(coordinator: HomeCoordinator, viewModel: HomeSharedViewModel) {
         self.coordinator = coordinator
         self.viewModel = viewModel
         observeEvents()
     }
-       
+    
     func observe(){
         self.disposableHandle = viewModel.state.subscribe(onCollect: { newState in
             DispatchQueue.main.async{
@@ -35,6 +36,14 @@ class HomeViewModel : ObservableObject {
                 }
             }
         })
+    }
+    
+    func loadMoreNews(){
+        viewModel.loadNews()
+    }
+    
+    func refresh(){
+        viewModel.refresh()
     }
     
     func observeEvents(){
@@ -59,5 +68,8 @@ class HomeViewModel : ObservableObject {
     deinit{
         disposableHandle?.dispose()
     }
+    
+
+ 
     
 }

@@ -35,6 +35,7 @@ import coil.request.ImageRequest
 import com.codefylabs.www.canimmigrate.android.R
 import com.codefylabs.www.canimmigrate.android.ui.theme.LinkBlue
 import com.codefylabs.www.canimmigrate.dashboard.domain.models.Feed
+import com.codefylabs.www.canimmigrate.dashboard.domain.models.news.News
 
 @Composable
 fun NewsCard(modifier: Modifier = Modifier, item: Feed, onClick: (Feed) -> Unit) {
@@ -229,6 +230,115 @@ fun NewsCardWide(modifier: Modifier = Modifier, item: Feed, onClick: (Feed) -> U
                     )
                     Text(
                         text = item.shares,
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 9.sp
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface.copy(0.7f),
+                        modifier = Modifier.padding(start = 6.dp)
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+
+
+            Image(
+                painter = painter,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(80.dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun NewsCardWide(modifier: Modifier = Modifier, item: News, onClick: (News) -> Unit) {
+
+    val painter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(item.thumbnailUrl)
+            .crossfade(true)
+            .build()
+    )
+
+    Card(
+        shape = RoundedCornerShape(0.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .clip(MaterialTheme.shapes.small)
+            .clickable {
+                onClick(item)
+            }
+            .background(Color.LightGray.copy(0.2f), shape = MaterialTheme.shapes.small)
+            .padding(6.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Transparent
+        ),
+    ) {
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                    .padding(top = 8.dp)
+                    .weight(1f)
+            ) {
+                Text(
+                    text = item.title,
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        fontWeight = FontWeight.Medium,
+                        lineHeight = 14.sp,
+                        fontSize = 12.sp,
+                    ),
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                    minLines = 3,
+                    maxLines = 3
+                )
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = item.source,
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 9.sp
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface.copy(0.7f),
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_eye),
+                        contentDescription = "Views",
+                        tint = MaterialTheme.colorScheme.onSurface.copy(0.7f),
+                        modifier = Modifier.size(12.dp)
+                    )
+
+                    Text(
+                        text = item.views.toString(),
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 9.sp
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface.copy(0.7f),
+                        modifier = Modifier.padding(start = 6.dp)
+                    )
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_share),
+                        contentDescription = "Shares",
+                        tint = MaterialTheme.colorScheme.onSurface.copy(0.7f),
+                        modifier = Modifier.size(12.dp)
+                    )
+                    Text(
+                        text = item.shares.toString(),
                         style = MaterialTheme.typography.bodyLarge.copy(
                             fontWeight = FontWeight.Medium,
                             fontSize = 9.sp

@@ -9,6 +9,7 @@ interface  TrendingNewsUseCase : suspend () -> Either<List<String>>
 class  TrendingNewsUseCaseImpl constructor(
     private val repo: DashboardRepository
 ) :  TrendingNewsUseCase {
+
     override suspend fun invoke(): Either<List<String>> = runCatching {
         val response = repo.getTrendingNews()
         Either.Success(response)

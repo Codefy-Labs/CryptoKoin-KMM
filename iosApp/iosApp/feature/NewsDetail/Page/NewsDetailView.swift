@@ -20,7 +20,7 @@ struct NewsDetailView : View {
     var body : some View {
         VStack{
             if url.isEmpty {
-                AsyncImageView(url: URL(string: url)!, placeholder: "news-placeholder")
+              RemoteImage(url: url)
                     .frame(height: 120)
             }else {
                 

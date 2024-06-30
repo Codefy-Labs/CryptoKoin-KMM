@@ -5,7 +5,10 @@ import com.codefylabs.www.canimmigrate.dashboard.data.local.DashboardPersistence
 import com.codefylabs.www.canimmigrate.dashboard.data.remote.api.DashboardApi
 import com.codefylabs.www.canimmigrate.dashboard.data.remote.api.DashboardApiImpl
 import com.codefylabs.www.canimmigrate.dashboard.data.repo.DashboardRepositoryImpl
+import com.codefylabs.www.canimmigrate.dashboard.domain.models.news.News
 import com.codefylabs.www.canimmigrate.dashboard.domain.repo.DashboardRepository
+import com.codefylabs.www.canimmigrate.dashboard.domain.usecases.NewsUseCase
+import com.codefylabs.www.canimmigrate.dashboard.domain.usecases.NewsUseCaseImpl
 import com.codefylabs.www.canimmigrate.dashboard.domain.usecases.TrendingNewsUseCase
 import com.codefylabs.www.canimmigrate.dashboard.domain.usecases.TrendingNewsUseCaseImpl
 import io.realm.kotlin.Realm
@@ -32,13 +35,17 @@ val homeModule = module {
             Realm.open(
                 RealmConfiguration.Builder(
                     schema = setOf()
-                ).build()
+                ).deleteRealmIfMigrationNeeded().build()
             )
         )
     }
 
     single<TrendingNewsUseCase> {
         TrendingNewsUseCaseImpl(get())
+    }
+
+    single<NewsUseCase> {
+        NewsUseCaseImpl(get())
     }
 
 }

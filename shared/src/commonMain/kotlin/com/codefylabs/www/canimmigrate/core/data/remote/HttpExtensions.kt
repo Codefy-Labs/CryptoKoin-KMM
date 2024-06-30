@@ -2,6 +2,8 @@ package com.codefylabs.www.canimmigrate.core.data.remote
 
 import com.codefylabs.www.canimmigrate.core.data.models.ApiWrapper
 import com.codefylabs.www.canimmigrate.core.util.NetworkResult
+import com.codefylabs.www.canimmigrate.core.util.toObject
+import com.codefylabs.www.canimmigrate.dashboard.domain.models.news.NewsContainer
 import io.github.aakira.napier.Napier
 import io.ktor.client.call.body
 import io.ktor.client.request.forms.FormBuilder
@@ -159,6 +161,13 @@ suspend fun Result<HttpResponse>.toResult(): NetworkResult {
     }
 
 }
+
+inline fun <reified T> NetworkResult.Success.toApiResponse(json: Json): ApiWrapper<T> {
+    return  json.toObject<ApiWrapper<T>>(this.data.decodeToString())
+}
+
+
+
 
 
 class NetworkException(message: String) : Exception(message)

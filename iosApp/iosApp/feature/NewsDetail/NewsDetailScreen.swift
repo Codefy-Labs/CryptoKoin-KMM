@@ -40,7 +40,7 @@ struct NewsDetailScreen: View {
                             ScrollView {
                                 
                                 if url.isEmpty {
-                                    AsyncImageView(url: URL(string: url)!, placeholder: "news-placeholder")
+                                  RemoteImage(url: url)
                                         .frame(height: 120)
                                 }else {
                                     if let url = URL(string:url) {

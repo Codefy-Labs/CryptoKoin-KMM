@@ -17,9 +17,8 @@ struct TrendingCardView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            AsyncImageView(url: URL(string: imageUrl)!,
-                           placeholder: "news-placeholder",
-                           width: 160, height: 240)
+            RemoteImage(url:  imageUrl)
+                .frame(width: 160, height: 240)
             
             Text(title)
                 .customFont(12, weight: .medium)
@@ -114,17 +113,21 @@ struct FeedCardView: View {
                             .foregroundColor(.gray)
                     }
                 }
+                Spacer()
             }
             
             Spacer()
             
-            AsyncImageView(url: URL(string: imageUrl)!,
-                           placeholder: "news-placeholder",
-                           width: 100, height: 80)
-           
+//            AsyncImageView(url: URL(string: imageUrl)!,
+//                           placeholder: "news-placeholder",
+//                           width: 100, height: 80)
+            
+            RemoteImage(url: imageUrl)
+                          .frame(width: 100, height: 100, alignment: .center)
+                          .cornerRadius(4)
         }.padding()
-            .background(Color(uiColor: UIColor.label.withAlphaComponent(0.06)))
-            .cornerRadius(8)
+            .background(Color(uiColor: UIColor.label.withAlphaComponent(0.01)))
+            .cornerRadius(4)
         .padding(.horizontal, 8)
      
     }

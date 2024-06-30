@@ -20,7 +20,7 @@ val settingsModule = module {
             Realm.open(
                 RealmConfiguration.Builder(
                     schema = setOf(AppPreferenceObject::class)
-                ).build()
+                ).deleteRealmIfMigrationNeeded().build()
             )
         )
     }

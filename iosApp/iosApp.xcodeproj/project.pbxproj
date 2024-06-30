@@ -77,7 +77,6 @@
 		CEC8159F2C257E7700DB0C1D /* OpenSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEC815922C257D9400DB0C1D /* OpenSans-Medium.ttf */; };
 		CEC815A02C257E7700DB0C1D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEC815972C257D9500DB0C1D /* OpenSans-Regular.ttf */; };
 		CEC815A12C257E7700DB0C1D /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEC815932C257D9500DB0C1D /* OpenSans-SemiBold.ttf */; };
-		CEC815A32C2580ED00DB0C1D /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC815A22C2580ED00DB0C1D /* AsyncImageView.swift */; };
 		CEC815A52C25913B00DB0C1D /* FiltersRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC815A42C25913B00DB0C1D /* FiltersRow.swift */; };
 		CEC815A82C259AF700DB0C1D /* ExpressEntrySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC815A72C259AF700DB0C1D /* ExpressEntrySection.swift */; };
 		CEC815AA2C259B0800DB0C1D /* CitizenshipSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC815A92C259B0800DB0C1D /* CitizenshipSection.swift */; };
@@ -121,6 +120,9 @@
 		CEC816072C2DD44E00DB0C1D /* CommentsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC816062C2DD44E00DB0C1D /* CommentsSection.swift */; };
 		CEC816092C2DD8F500DB0C1D /* DiscussionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC816082C2DD8F500DB0C1D /* DiscussionViewModel.swift */; };
 		CEC8160C2C2DDA0400DB0C1D /* NewsDetailTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC8160B2C2DDA0400DB0C1D /* NewsDetailTabs.swift */; };
+		CECE04CD2C31CB3B00C78443 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE04CC2C31CB3B00C78443 /* ImageCache.swift */; };
+		CECE04CF2C31CB5C00C78443 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE04CE2C31CB5C00C78443 /* ImageLoader.swift */; };
+		CECE04D12C31CB7900C78443 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE04D02C31CB7900C78443 /* RemoteImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -197,7 +199,6 @@
 		CEC815952C257D9500DB0C1D /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		CEC815972C257D9500DB0C1D /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		CEC815992C257D9500DB0C1D /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
-		CEC815A22C2580ED00DB0C1D /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		CEC815A42C25913B00DB0C1D /* FiltersRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersRow.swift; sourceTree = "<group>"; };
 		CEC815A72C259AF700DB0C1D /* ExpressEntrySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressEntrySection.swift; sourceTree = "<group>"; };
 		CEC815A92C259B0800DB0C1D /* CitizenshipSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitizenshipSection.swift; sourceTree = "<group>"; };
@@ -236,6 +237,9 @@
 		CEC816062C2DD44E00DB0C1D /* CommentsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsSection.swift; sourceTree = "<group>"; };
 		CEC816082C2DD8F500DB0C1D /* DiscussionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionViewModel.swift; sourceTree = "<group>"; };
 		CEC8160B2C2DDA0400DB0C1D /* NewsDetailTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailTabs.swift; sourceTree = "<group>"; };
+		CECE04CC2C31CB3B00C78443 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		CECE04CE2C31CB5C00C78443 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		CECE04D02C31CB7900C78443 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		DE1D389E2B7B3BE8000EF759 /* iosApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iosApp.entitlements; sourceTree = "<group>"; };
 		EBB887275CD54DD8C7A4815A /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -376,7 +380,6 @@
 				CEC815872C25731300DB0C1D /* ScaledImage.swift */,
 				CEC8158D2C257B0700DB0C1D /* TopAppBar.swift */,
 				CEC8158F2C257CC200DB0C1D /* FeedCardView.swift */,
-				CEC815A22C2580ED00DB0C1D /* AsyncImageView.swift */,
 				CEC815A42C25913B00DB0C1D /* FiltersRow.swift */,
 				CEC815AE2C25A0C100DB0C1D /* CardView.swift */,
 				CEC815D72C2A6E6400DB0C1D /* BackButton.swift */,
@@ -472,6 +475,7 @@
 		76B235FE2B6003D30007F981 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				CECE04CB2C31CB2800C78443 /* ImageCache */,
 				76B235FF2B6003D70007F981 /* toast */,
 				760CF9132B8B1792008F0F50 /* NetworkMonitor.swift */,
 				CEC815B72C25B09500DB0C1D /* DateExtension.swift */,
@@ -722,6 +726,16 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		CECE04CB2C31CB2800C78443 /* ImageCache */ = {
+			isa = PBXGroup;
+			children = (
+				CECE04CC2C31CB3B00C78443 /* ImageCache.swift */,
+				CECE04CE2C31CB5C00C78443 /* ImageLoader.swift */,
+				CECE04D02C31CB7900C78443 /* RemoteImage.swift */,
+			);
+			path = ImageCache;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -782,6 +796,7 @@
 				CEC815892C25762000DB0C1D /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				CEC815D92C2ADE0100DB0C1D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				CEC815E02C2ADEA000DB0C1D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CEC8160D2C2F0E5F00DB0C1D /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -864,6 +879,7 @@
 				7654F1262BBBCA9B00C84605 /* Colors.swift in Sources */,
 				CEC815FF2C2D4E3000DB0C1D /* WebView.swift in Sources */,
 				CEC816092C2DD8F500DB0C1D /* DiscussionViewModel.swift in Sources */,
+				CECE04CF2C31CB5C00C78443 /* ImageLoader.swift in Sources */,
 				CEC815C42C294E1F00DB0C1D /* OBStepView.swift in Sources */,
 				766F87DD2B84A08400DF6B56 /* Coordinator.swift in Sources */,
 				7654F1242BBBCA6000C84605 /* ButtonStyles.swift in Sources */,
@@ -897,10 +913,10 @@
 				CEC815762C255EF900DB0C1D /* ProgramsViewModel.swift in Sources */,
 				76AE5A3C2BBC3492000CECFE /* Font.swift in Sources */,
 				768098102B83409C0084C4AC /* Navigator.swift in Sources */,
-				CEC815A32C2580ED00DB0C1D /* AsyncImageView.swift in Sources */,
 				CE6290862BFDF7FB00069A33 /* SearchBarView.swift in Sources */,
 				CEC815FC2C2D397F00DB0C1D /* FloatingActionButton.swift in Sources */,
 				CEC815C82C29960700DB0C1D /* LoginScreen.swift in Sources */,
+				CECE04D12C31CB7900C78443 /* RemoteImage.swift in Sources */,
 				CEC815A52C25913B00DB0C1D /* FiltersRow.swift in Sources */,
 				CE6290652BFDF31900069A33 /* DashboardCoordinator.swift in Sources */,
 				CEC8158E2C257B0700DB0C1D /* TopAppBar.swift in Sources */,
@@ -927,6 +943,7 @@
 				CEC815B22C25A76A00DB0C1D /* LatestDrawStatistics.swift in Sources */,
 				CEC815AA2C259B0800DB0C1D /* CitizenshipSection.swift in Sources */,
 				CEC815EF2C2D2D9800DB0C1D /* NewsDetailScreen.swift in Sources */,
+				CECE04CD2C31CB3B00C78443 /* ImageCache.swift in Sources */,
 				CE6290962BFDF85500069A33 /* HomeScreen.swift in Sources */,
 				CEC815802C25605400DB0C1D /* ProgramsCoordinator.swift in Sources */,
 				76A847552BBCF44B00FAB116 /* ViewExtension.swift in Sources */,
@@ -1195,6 +1212,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 10.28.1;
+			};
+		};
+		CEC8160D2C2F0E5F00DB0C1D /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rickclephas/KMP-NativeCoroutines.git";
+			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

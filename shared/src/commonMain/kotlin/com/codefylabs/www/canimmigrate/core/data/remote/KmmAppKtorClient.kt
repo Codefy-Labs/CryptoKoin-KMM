@@ -47,39 +47,39 @@ class KmmAppKtorClient constructor(
         return client.config {
             install(Auth) {
 
-                bearer {
-                    session.takeIf { !it?.accessToken.isNullOrBlank() && !it?.refreshToken.isNullOrBlank() }
-                        ?.let { session ->
-                            if (!session.accessToken.isNullOrBlank() && !session.refreshToken.isNullOrBlank()) {
-                                Napier.e("SessionAuthorization is injected in headers successfully. ")
-                                loadTokens {
-                                    BearerTokens(
-                                        session.accessToken.toString(),
-                                        session.refreshToken.toString()
-                                    )
-                                }
-
-                                refreshTokens {
-                                    val refreshTokenInfo: Session = client.submitForm(
-                                        url = "${BaseConfig.BASE_URL}/auth/refresh-token",
-                                    ) {
-                                        this.headers {
-                                            this.append("Authorization", "Bearer ${session.refreshToken}")
-                                        }
-                                        markAsRefreshTokenRequest()
-                                    }.body()
-
-                                    authPrefs.writeSession(refreshTokenInfo.toRealmObject())
-
-                                    BearerTokens(
-                                        accessToken = refreshTokenInfo.accessToken.toString(),
-                                        refreshToken = refreshTokenInfo.refreshToken.toString()
-                                    )
-                                }
-                            } else Napier.e("SessionAuthorization is not injected in headers. ElseCase ")
-                        } ?: Napier.e("SessionAuthorization is not injected in headers. ?:Case")
-
-                }
+//                bearer {
+//                    session.takeIf { !it?.accessToken.isNullOrBlank() && !it?.refreshToken.isNullOrBlank() }
+//                        ?.let { session ->
+//                            if (!session.accessToken.isNullOrBlank() && !session.refreshToken.isNullOrBlank()) {
+//                                Napier.e("SessionAuthorization is injected in headers successfully. ")
+//                                loadTokens {
+//                                    BearerTokens(
+//                                        session.accessToken.toString(),
+//                                        session.refreshToken.toString()
+//                                    )
+//                                }
+//
+//                                refreshTokens {
+//                                    val refreshTokenInfo: Session = client.submitForm(
+//                                        url = "${BaseConfig.BASE_URL}/auth/refresh-token",
+//                                    ) {
+//                                        this.headers {
+//                                            this.append("Authorization", "Bearer ${session.refreshToken}")
+//                                        }
+//                                        markAsRefreshTokenRequest()
+//                                    }.body()
+//
+//                                    authPrefs.writeSession(refreshTokenInfo.toRealmObject())
+//
+//                                    BearerTokens(
+//                                        accessToken = refreshTokenInfo.accessToken.toString(),
+//                                        refreshToken = refreshTokenInfo.refreshToken.toString()
+//                                    )
+//                                }
+//                            } else Napier.e("SessionAuthorization is not injected in headers. ElseCase ")
+//                        } ?: Napier.e("SessionAuthorization is not injected in headers. ?:Case")
+//
+//                }
             }
         }
     }

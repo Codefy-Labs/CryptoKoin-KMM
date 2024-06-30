@@ -11,11 +11,16 @@ import SwiftUI
 import Lottie
 
 struct LoadingView: View {
+    
+    var width : CGFloat = 250
+    var height : CGFloat = 250
+    var background : Color = Color.gray.opacity(0.1)
+    
     @State private var rotationAngle: Double = 0
 
     var body: some View {
         ZStack{
-            Color.gray.opacity(0.2).edgesIgnoringSafeArea(.all)
+            background.edgesIgnoringSafeArea(.all)
             
             VStack{
                 Spacer()
@@ -23,7 +28,7 @@ struct LoadingView: View {
                     LottieView(animation: .named("loading"))
                         .playing(loopMode: .repeat(.infinity))
                 }
-                .frame(width: 250, height: 250)
+                .frame(width: self.width, height: self.height)
              
                 Spacer()
             }
